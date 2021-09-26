@@ -3,7 +3,7 @@ package com.cegepst;
 public class Output {
 
     public static void displayOptions() {
-        System.out.print("You want me to 'encode' or to 'decode' a message?");
+        System.out.println("You want me to 'encode' or to 'decode' a message?");
     }
 
     public static void displayOptionError() {

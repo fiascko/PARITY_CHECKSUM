@@ -32,12 +32,11 @@ public class Input {
     private static String validateBinaryMessage() {
         Scanner reader = new Scanner(System.in);
         String decodeMessage = reader.nextLine();
-        boolean condition = (Pattern.matches("[a-zA-Z]+", decodeMessage) || !decodeMessage.contains("0") && !decodeMessage.contains("1"));
-        if (condition) {
+        if (!Pattern.matches("[0-1]+", decodeMessage) || decodeMessage.length() < 9) {
             do{
                 Output.displayBinaryMessageError();
                 decodeMessage = reader.nextLine();
-            } while(condition);
+            } while(!Pattern.matches("[0-1]+", decodeMessage) || decodeMessage.length() < 9);
         }
         return decodeMessage;
     }
