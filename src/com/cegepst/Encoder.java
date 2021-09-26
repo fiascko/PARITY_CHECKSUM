@@ -1,8 +1,8 @@
 package com.cegepst;
 
-public class Encode {
+public class Encoder {
 
-    public Encode(String textMessage) {
+    public Encoder(String textMessage) {
         BinaryShifter binaryShifter = new BinaryShifter(textMessage);
     }
 

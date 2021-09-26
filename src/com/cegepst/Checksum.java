@@ -10,10 +10,10 @@ public class Checksum {
     private void startOption(String option) {
         if (option.equals("DECODE")) {
             Output.displayDecodeMessage();
-            new Decode(Input.readBinaryMessage());
+            new Decoder(Input.readBinaryMessage());
             return;
         }
         Output.displayEncodeMessage();
-        new Encode(Input.readTextMessage());
+        new Encoder(Input.readTextMessage());
     }
 }
