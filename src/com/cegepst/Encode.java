@@ -4,21 +4,31 @@ import java.util.ArrayList;
 
 public class Encode {
 
-    private String binaryString;
+    private String binaryMessage;
+//    private ArrayList<BinaryLine> binaryLines;
 
     public Encode(String textMessage) {
-        binaryString = transform(textMessage);
-        System.out.println(binaryString);
+        binaryMessage = convertToBinary(textMessage);
+//        System.out.println(binaryMessage);
+
+//        createBlockList(binaryString);
+//        addparity();
+//        systemoutString;
     }
 
-    private String transform(String textMessage) {
-        StringBuilder result = new StringBuilder();
+    private String convertToBinary(String textMessage) {
+        StringBuilder bitsStream = new StringBuilder();
         char[] chars = textMessage.toCharArray();
         for (char aChar : chars) {
-            result.append(String.format("%8s", Integer.toBinaryString(aChar)).replaceAll(" ", "0")                         // zero pads
-            );
+            bitsStream.append(String.format("%8s", Integer.toBinaryString(aChar)).replaceAll(" ", "0"));
         }
-        return result.toString();
+        return bitsStream.toString();
     }
+//
+//    private void createBlockList(String binaryString) {
+//
+//        binaryString.split()
+//
+//    }
 
 }
