@@ -21,9 +21,7 @@ public class Encoder {
     private void encode(String textMessage) {
         bitsStream = translator.convertMessageToBinary(textMessage);
         splitBitsStream(bitsStream);
-        //        add parity to Byte(line)
-        //        make block(grid)
-        //        add parity to block
+        //        make block(grid) add parity to block
         //        convert all block to string
         //        output the bitStreamstring
     }
