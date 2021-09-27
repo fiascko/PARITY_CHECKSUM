@@ -2,7 +2,7 @@ package com.cegepst;
 
 public class Translator {
 
-    public static String convertMessageToBinary(String textMessage) {
+    public String convertMessageToBinary(String textMessage) {
         StringBuilder bitsStream = new StringBuilder();
         char[] chars = textMessage.toCharArray();
         for (char aChar : chars) {
@@ -11,5 +11,5 @@ public class Translator {
         return bitsStream.toString();
     }
 
-//    public static String convertBinaryToMessahe(String bitsStream) ////((DECODE))
+//    public static String convertBinaryToMessage(String bitsStream) ////((DECODE))
 }
