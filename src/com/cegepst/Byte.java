@@ -1,11 +1,11 @@
 package com.cegepst;
 
-import java.util.ArrayList;
-
-//POUR 1 MOT
 public class Byte {
 
-    private ArrayList<Character> byteWord = new ArrayList<Character>();
+    public String charByte;
 
+    public Byte(String bits) {
+        charByte = bits; //POUR 1 char (8 bit)
+    }
 
 }

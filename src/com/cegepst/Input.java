@@ -44,13 +44,12 @@ public class Input {
     private static String validateTextMessage() {
         Scanner reader = new Scanner(System.in);
         String encodeMessage = reader.nextLine();
-        if (encodeMessage.isEmpty()) {
+        if (encodeMessage.isEmpty() || Pattern.matches("[0-1]+", encodeMessage)) {
             do{
                 Output.displayTextMessageError();
                 encodeMessage = reader.nextLine();
-            } while((encodeMessage.isEmpty()));
+            } while(encodeMessage.isEmpty() || Pattern.matches("[0-1]+", encodeMessage));
         }
         return encodeMessage;
     }
-
 }
