@@ -3,11 +3,15 @@ package com.cegepst;
 public class Byte {
 
     private String charByte;
-    private ParityEvaluator parityEvaluator;
+    private ParityManager parityManager;
 
     public Byte(String bits) {
-        parityEvaluator = new ParityEvaluator();
+        parityManager = new ParityManager();
         charByte = bits;
-        charByte = parityEvaluator.addParityBit(charByte);
+        charByte = parityManager.addParityBit(charByte);
+    }
+
+    public String getCharByte() {
+        return charByte;
     }
 }

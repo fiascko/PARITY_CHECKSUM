@@ -1,5 +1,7 @@
 package com.cegepst;
 
+import java.util.ArrayList;
+
 public class Output {
 
     public static void displayOptions() {
@@ -24,5 +26,12 @@ public class Output {
 
     public static void displayTextMessageError() {
         System.out.println("I need a text message to 'encode'.");
+    }
+
+    public static void displayEncodeResult(ArrayList<Byte> bytes) {
+        System.out.println("I did this for you.");
+        for(int i = 0; i < bytes.size(); i++) {
+            System.out.print(bytes.get(i).getCharByte());
+        }
     }
 }
