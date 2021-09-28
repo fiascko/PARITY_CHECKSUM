@@ -5,5 +5,4 @@ public class Decoder {
     public Decoder(String binaryMessage) {
 
     }
-
 }

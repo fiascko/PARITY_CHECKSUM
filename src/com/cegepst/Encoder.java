@@ -1,13 +1,15 @@
 package com.cegepst;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Encoder {
 
     private String bitsStream;
     private Translator translator;
+    private ParityEvaluator parityEvaluator;
 
-    private ArrayList<Byte> bytes = new ArrayList<Byte>();
+    private ArrayList<Byte> bytes;
 
     public Encoder(String textMessage) {
         initEncoder();
@@ -15,15 +17,17 @@ public class Encoder {
     }
 
     private void initEncoder() {
+        bytes = new ArrayList<Byte>();
         translator = new Translator();
+        parityEvaluator = new ParityEvaluator();
     }
 
     private void encode(String textMessage) {
         bitsStream = translator.convertMessageToBinary(textMessage);
         splitBitsStream(bitsStream);
-        //        make block(grid) add parity to block
-        //        convert all block to string
-        //        output the bitStreamstring
+        parityEvaluator.addParityLines(bytes);
+//        translator
+//        output
     }
 
     private void splitBitsStream(String bitsStream) {
@@ -34,4 +38,6 @@ public class Encoder {
         }
     }
 
+
 }
+

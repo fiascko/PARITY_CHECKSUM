@@ -2,20 +2,12 @@ package com.cegepst;
 
 public class Byte {
 
-    public String charByte;
+    private String charByte;
+    private ParityEvaluator parityEvaluator;
 
     public Byte(String bits) {
-        charByte = bits; //POUR 1 char (8 bit)
-        addParityBit();
-        System.out.println(charByte);
+        parityEvaluator = new ParityEvaluator();
+        charByte = bits;
+        charByte = parityEvaluator.addParityBit(charByte);
     }
-
-    private void addParityBit() {
-        if ((Integer.parseInt(charByte) % 2) == 0) {
-            charByte += "0";
-        } else {
-            charByte += "1";
-        }
-    }
-
 }

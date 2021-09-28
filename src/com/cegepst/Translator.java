@@ -10,6 +10,5 @@ public class Translator {
         }
         return bitsStream.toString();
     }
-
-//    public static String convertBinaryToMessage(String bitsStream) ////((DECODE))
 }
+//    public static String convertBinaryToMessage(String bitsStream) ////((DECODE))
