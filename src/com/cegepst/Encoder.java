@@ -9,7 +9,6 @@ public class Encoder {
     private ParityManager parityManager;
 
     private ArrayList<Byte> bytes;
-
     private ArrayList<Byte> encodingBitsStream;
 
     public Encoder(String textMessage) {
@@ -38,7 +37,5 @@ public class Encoder {
             bytes.get(i).setParityCharByte(parityManager.calculateParityBit(bytes.get(i).getCharByte()));
         }
     }
-
-
 }
 
