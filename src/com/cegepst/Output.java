@@ -1,5 +1,8 @@
 package com.cegepst;
 
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.util.ArrayList;
 
 public class Output {
@@ -28,10 +31,21 @@ public class Output {
         System.out.println("I need a text message to 'encode'.");
     }
 
-    public static void displayEncodeResult(ArrayList<Byte> bytes) {
+    public static String displayEncodeResult(ArrayList<Byte> bytes) {
+        String message = ""; // paste
+
         System.out.println("I did this for you.");
         for(int i = 0; i < bytes.size(); i++) {
             System.out.print(bytes.get(i).getCharByte());
+
+            message += bytes.get(i).getCharByte(); //past
         }
+        return message; // past
+    }
+
+    public static void copiePaste(String encodingBitsStream) { //paste
+        StringSelection stringSelection = new StringSelection(encodingBitsStream);
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        clipboard.setContents(stringSelection, null);
     }
 }

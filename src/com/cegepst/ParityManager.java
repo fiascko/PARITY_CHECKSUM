@@ -20,16 +20,46 @@ public class ParityManager {
     }
 
     public ArrayList<Byte> addParityLines(ArrayList<Byte> bytes) {
+        ArrayList<Byte> encodeBytes = new ArrayList<Byte>();
+        if (bytes.size() <= 8) {
+            encodeBytes = addParityLine(bytes);
+            return encodeBytes;
+        }
+        int totalNumberOfByte = bytes.size() / 8;
+        int numberOfByteRest = bytes.size() % 8;
+
+        int position = 0;
+        for (int i = 0; i < totalNumberOfByte; i++) {
+            ArrayList<Byte> tempoBytes = new ArrayList<Byte>();
+            for (int j = 0; j < 8; j++) {
+                tempoBytes.add(bytes.get(position));
+                position++;
+            }
+            tempoBytes = addParityLine(tempoBytes);
+            encodeBytes.addAll(tempoBytes);
+        }
+        if (numberOfByteRest != 0) {
+            ArrayList<Byte> tempoBytes = new ArrayList<Byte>();
+            for (int i = 0; i <= numberOfByteRest; i++) {
+                position++;
+                tempoBytes.add(bytes.get(position));
+            }
+            tempoBytes = addParityLine(tempoBytes);
+            encodeBytes.addAll(tempoBytes);
+        }
+        return encodeBytes;
+    }
+
+    public ArrayList<Byte> addParityLine(ArrayList<Byte> bytesArray) {
         String parityLine = "";
         for (int charIndex = 0; charIndex < 9; charIndex++) {
             String thisCol = "";
-            for (int byteIndex = 0; byteIndex < bytes.size(); byteIndex++) {
-                thisCol += bytes.get(byteIndex).getCharByte().charAt(charIndex);
+            for (int byteIndex = 0; byteIndex < bytesArray.size(); byteIndex++) {
+                thisCol += bytesArray.get(byteIndex).getCharByte().charAt(charIndex);
             }
             parityLine += calculateParityBit(thisCol);
         }
-        bytes.add(new Byte(parityLine));
-        return bytes;
+        bytesArray.add(new Byte(parityLine));
+        return bytesArray;
     }
 }
-
