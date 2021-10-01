@@ -3,8 +3,10 @@ package com.cegepst;
 public class Checksum {
 
     public Checksum() {
-        Output.displayOptions();
-        startOption(Input.readOption());
+        while (true) {
+            Output.displayOptions();
+            startOption(Input.readOption());
+        }
     }
 
     private void startOption(String option) {
@@ -13,7 +15,14 @@ public class Checksum {
             new Decoder(Input.readBinaryMessage());
             return;
         }
-        Output.displayEncodeMessage();
-        new Encoder(Input.readTextMessage());
+        if (option.equals("ENCODE")) {
+            Output.displayEncodeMessage();
+            new Encoder(Input.readTextMessage());
+            return;
+        }
+        if (option.equals("EXIT")) {
+            System.exit(0);
+        }
+        return;
     }
 }

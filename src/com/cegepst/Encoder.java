@@ -1,8 +1,5 @@
 package com.cegepst;
 
-import java.awt.*;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
 import java.util.ArrayList;
 
 public class Encoder {
@@ -29,9 +26,7 @@ public class Encoder {
         bitsStream = translator.convertMessageToBinary(textMessage);
         splitBitsStream(bitsStream);
         encodingBitsStream = parityManager.addParityLines(bytes);
-
-        String message = Output.displayEncodeResult(encodingBitsStream);
-        Output.copiePaste(message);
+        Output.displayEncodeResult(encodingBitsStream);
     }
 
     private void splitBitsStream(String bitsStream) {

@@ -8,11 +8,11 @@ import java.util.ArrayList;
 public class Output {
 
     public static void displayOptions() {
-        System.out.println("You want me to 'encode' or to 'decode' a message?");
+        System.out.println("You want me to 'encode', to 'decode' or to 'exit'?");
     }
 
     public static void displayOptionError() {
-        System.out.println("Don't be a fool, you want to 'encode' or to 'decode' a message?");
+        System.out.println("Don't be a fool, you want to 'encode', to 'decode' or to 'exit'?");
     }
 
     public static void displayDecodeMessage() {
@@ -31,20 +31,19 @@ public class Output {
         System.out.println("I need a text message to 'encode'.");
     }
 
-    public static String displayEncodeResult(ArrayList<Byte> bytes) {
-        String message = ""; // paste
-
-        System.out.println("I did this for you.");
+    public static void displayEncodeResult(ArrayList<Byte> bytes) {
+        String encodeCopy = "";
+        System.out.println("I did this for you. (The message is copied in your clipboard)");
         for(int i = 0; i < bytes.size(); i++) {
             System.out.print(bytes.get(i).getCharByte());
-
-            message += bytes.get(i).getCharByte(); //past
+            encodeCopy += bytes.get(i).getCharByte();
         }
-        return message; // past
+        copyToKeyboard(encodeCopy);
+        System.out.println("\n");
     }
 
-    public static void copiePaste(String encodingBitsStream) { //paste
-        StringSelection stringSelection = new StringSelection(encodingBitsStream);
+    public static void copyToKeyboard(String encodeCopy) {
+        StringSelection stringSelection = new StringSelection(encodeCopy);
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(stringSelection, null);
     }

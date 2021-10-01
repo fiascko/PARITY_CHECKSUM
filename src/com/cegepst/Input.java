@@ -20,11 +20,11 @@ public class Input {
     private static String validateOption() {
         Scanner reader = new Scanner(System.in);
         String option = reader.nextLine();
-        if (!option.equalsIgnoreCase("ENCODE") && !option.equalsIgnoreCase("DECODE")) {
+        if (!option.equalsIgnoreCase("ENCODE") && !option.equalsIgnoreCase("DECODE") && !option.equalsIgnoreCase("EXIT")) {
             do{
                 Output.displayOptionError();
                 option = reader.nextLine();
-            } while(!option.equalsIgnoreCase("ENCODE") && !option.equalsIgnoreCase("DECODE"));
+            } while(!option.equalsIgnoreCase("ENCODE") && !option.equalsIgnoreCase("DECODE") && !option.equalsIgnoreCase("EXIT"));
         }
         return option;
     }
