@@ -21,7 +21,7 @@ public class ParityManager {
 
     public ArrayList<Byte> addParityLines(ArrayList<Byte> bytes) {
         ArrayList<Byte> encodeBytes = new ArrayList<Byte>();
-        if (bytes.size() <= 8) {  // SA SA MARCHE OK
+        if (bytes.size() <= 8) {
             encodeBytes = addParityLine(bytes);
             return encodeBytes;
         }
@@ -29,7 +29,7 @@ public class ParityManager {
         int numberOfByteRest = bytes.size() % 8;
         int position2 = 0;
 
-        for (int i = 0; i < totalNumberOfByte; i++) { //SA SA MARCHE OK
+        for (int i = 0; i < totalNumberOfByte; i++) {
             int position = 0;
             ArrayList<Byte> tempoBytes = new ArrayList<Byte>();
             for (int j = 0; j < 8; j++) {
@@ -52,7 +52,7 @@ public class ParityManager {
         return encodeBytes;
     }
 
-    public ArrayList<Byte> addParityLine(ArrayList<Byte> bytesArray) { // SA SA MARCHE OK
+    public ArrayList<Byte> addParityLine(ArrayList<Byte> bytesArray) {
         String parityLine = "";
         for (int charIndex = 0; charIndex < 9; charIndex++) {
             String thisCol = "";

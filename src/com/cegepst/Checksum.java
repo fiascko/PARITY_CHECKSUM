@@ -2,28 +2,24 @@ package com.cegepst;
 
 public class Checksum {
 
-    private static final String DECODE = "DECODE";
-    private static final String ENCODE = "ENCODE";
-    private static final String EXIT = "EXIT";
-
     public Checksum() {
         boolean checksum = true;
         while (checksum) {
-            checksum = startOption();
+            String option = chooseAnOption();
+            checksum = startOption(option);
         }
     }
 
-    private boolean startOption() {
-        String option = chooseAnOption();
-        if (option.equals(DECODE)) {
+    public boolean startOption(String option) {
+        if (option.equals(Input.DECODE)) {
             Output.displayDecodeMessage();
             new Decoder(Input.readBinaryMessage());
         }
-        if (option.equals(ENCODE)) {
+        if (option.equals(Input.ENCODE)) {
             Output.displayEncodeMessage();
             new Encoder(Input.readTextMessage());
         }
-        if (option.equals(EXIT)) {
+        if (option.equals(Input.EXIT)) {
             return false;
         }
         return true;

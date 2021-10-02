@@ -5,9 +5,9 @@ import java.util.regex.Pattern;
 
 public class Input {
 
-    private static final String DECODE = "DECODE";
-    private static final String ENCODE = "ENCODE";
-    private static final String EXIT = "EXIT";
+    public static final String DECODE = "DECODE";
+    public static final String ENCODE = "ENCODE";
+    public static final String EXIT = "EXIT";
 
     public static String readOption() {
         return validateOption().toUpperCase();
