@@ -21,36 +21,38 @@ public class ParityManager {
 
     public ArrayList<Byte> addParityLines(ArrayList<Byte> bytes) {
         ArrayList<Byte> encodeBytes = new ArrayList<Byte>();
-        if (bytes.size() <= 8) {
+        if (bytes.size() <= 8) {  // SA SA MARCHE OK
             encodeBytes = addParityLine(bytes);
             return encodeBytes;
         }
         int totalNumberOfByte = bytes.size() / 8;
         int numberOfByteRest = bytes.size() % 8;
+        int position2 = 0;
 
-        int position = 0;
-        for (int i = 0; i < totalNumberOfByte; i++) {
+        for (int i = 0; i < totalNumberOfByte; i++) { //SA SA MARCHE OK
+            int position = 0;
             ArrayList<Byte> tempoBytes = new ArrayList<Byte>();
             for (int j = 0; j < 8; j++) {
                 tempoBytes.add(bytes.get(position));
                 position++;
+                position2++;
             }
             tempoBytes = addParityLine(tempoBytes);
             encodeBytes.addAll(tempoBytes);
         }
-        if (numberOfByteRest != 0) {
-            ArrayList<Byte> tempoBytes = new ArrayList<Byte>();
-            for (int i = 0; i <= numberOfByteRest; i++) {
-                position++;
-                tempoBytes.add(bytes.get(position));
+        if (numberOfByteRest > 0) {
+            ArrayList<Byte> tempoBytes2 = new ArrayList<Byte>();
+            for (int i = 0; i < numberOfByteRest; i++) {
+                tempoBytes2.add(bytes.get(position2));
+                position2++;
             }
-            tempoBytes = addParityLine(tempoBytes);
-            encodeBytes.addAll(tempoBytes);
+            tempoBytes2 = addParityLine(tempoBytes2);
+            encodeBytes.addAll(tempoBytes2);
         }
         return encodeBytes;
     }
 
-    public ArrayList<Byte> addParityLine(ArrayList<Byte> bytesArray) {
+    public ArrayList<Byte> addParityLine(ArrayList<Byte> bytesArray) { // SA SA MARCHE OK
         String parityLine = "";
         for (int charIndex = 0; charIndex < 9; charIndex++) {
             String thisCol = "";

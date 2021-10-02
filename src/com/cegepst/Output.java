@@ -33,7 +33,7 @@ public class Output {
 
     public static void displayEncodeResult(ArrayList<Byte> bytes) {
         String encodeCopy = "";
-        System.out.println("I did this for you. (The message is copied in your clipboard)");
+        System.out.println("I did this for you. (The message is copied to your keyboard)\n");
         for(int i = 0; i < bytes.size(); i++) {
             System.out.print(bytes.get(i).getCharByte());
             encodeCopy += bytes.get(i).getCharByte();
@@ -43,8 +43,8 @@ public class Output {
     }
 
     public static void copyToKeyboard(String encodeCopy) {
-        StringSelection stringSelection = new StringSelection(encodeCopy);
+        StringSelection encodeString = new StringSelection(encodeCopy);
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-        clipboard.setContents(stringSelection, null);
+        clipboard.setContents(encodeString, null);
     }
 }

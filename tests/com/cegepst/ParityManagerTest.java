@@ -6,14 +6,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ParityManagerTest {
 
     @Test
-    void calculateParityBitEven() {
+    void CALCULATE_PARITY_BIT_EVEN() {
         ParityManager parityManager = new ParityManager();
         String result = parityManager.calculateParityBit("00101101");
         assertEquals("0", result);
     }
 
     @Test
-    void calculateParityBitOdd() {
+    void CALCULATE_PARITY_BIT_ODD() {
         ParityManager parityManager = new ParityManager();
         String result = parityManager.calculateParityBit("01001010");
         assertEquals("1", result);

@@ -5,6 +5,10 @@ import java.util.regex.Pattern;
 
 public class Input {
 
+    private static final String DECODE = "DECODE";
+    private static final String ENCODE = "ENCODE";
+    private static final String EXIT = "EXIT";
+
     public static String readOption() {
         return validateOption().toUpperCase();
     }
@@ -20,11 +24,11 @@ public class Input {
     private static String validateOption() {
         Scanner reader = new Scanner(System.in);
         String option = reader.nextLine();
-        if (!option.equalsIgnoreCase("ENCODE") && !option.equalsIgnoreCase("DECODE") && !option.equalsIgnoreCase("EXIT")) {
+        if (!option.equalsIgnoreCase(ENCODE) && !option.equalsIgnoreCase(DECODE) && !option.equalsIgnoreCase(EXIT)) {
             do{
                 Output.displayOptionError();
                 option = reader.nextLine();
-            } while(!option.equalsIgnoreCase("ENCODE") && !option.equalsIgnoreCase("DECODE") && !option.equalsIgnoreCase("EXIT"));
+            } while(!option.equalsIgnoreCase(ENCODE) && !option.equalsIgnoreCase(DECODE) && !option.equalsIgnoreCase(EXIT));
         }
         return option;
     }
