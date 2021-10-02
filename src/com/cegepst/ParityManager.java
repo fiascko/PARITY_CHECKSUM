@@ -64,4 +64,8 @@ public class ParityManager {
         bytesArray.add(new Byte(parityLine));
         return bytesArray;
     }
+
+    public String eraseParityBit(String charByte) {
+        return charByte.substring(0, charByte.length() - 1);
+    }
 }
