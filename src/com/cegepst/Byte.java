@@ -8,6 +8,10 @@ public class Byte {
         charByte = bits;
     }
 
+    public void eraseParityBit() {
+        charByte = charByte.substring(0, charByte.length() - 8);
+    }
+
     public String getCharByte() {
         return charByte;
     }
