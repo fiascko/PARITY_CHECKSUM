@@ -25,6 +25,4 @@ public class Byte {
         return (char)parseInt;
     }
 
-    //        translate() les charByte en char dans la string
-
 }

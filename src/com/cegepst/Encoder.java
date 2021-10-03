@@ -9,7 +9,7 @@ public class Encoder {
     private ParityManager parityManager;
 
     private ArrayList<Byte> bytes;
-    private ArrayList<Byte> encodingBitsStream;
+    private ArrayList<Byte> encodeBitsStream;
 
     public Encoder(String textMessage) {
         initEncoder();
@@ -25,8 +25,8 @@ public class Encoder {
     private void encode(String textMessage) {
         bitsStream = translator.convertMessageToBinary(textMessage);
         splitBitsStream(bitsStream);
-        encodingBitsStream = parityManager.addParityLines(bytes);
-        Output.displayEncodeResult(encodingBitsStream);
+        encodeBitsStream = parityManager.addParityLines(bytes);
+        Output.displayEncodeResult(encodeBitsStream);
     }
 
     private void splitBitsStream(String bitsStream) {

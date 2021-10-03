@@ -17,9 +17,9 @@ public class Decoder {
 
     private void initDecoder() {
         bytes = new ArrayList<>();
+        decodeMessage = new ArrayList<>();
         translator = new Translator();
         parityManager = new ParityManager();
-        decodeMessage = new ArrayList<>();
     }
 
     private void decode(String binaryMessage) {
@@ -29,7 +29,7 @@ public class Decoder {
 //        siErrorRepareerreur()
         bytes = parityManager.eraseParityLines(bytes); // ajout des deux autre conditions
         bytes = parityManager.eraseParityBits(bytes);
-        decodeBytes(bytes);
+        decodeMessage = translator.convertBytesToCharacters(bytes, decodeMessage);
         Output.displayDecodeResult(decodeMessage);
     }
 
@@ -38,12 +38,6 @@ public class Decoder {
         String[] splitBits = bitsStream.split("(?<=\\G.{9})");
         for (int i = 0; i < byteCounter; i++) {
             bytes.add(new Byte(splitBits[i]));
-        }
-    }
-
-    private void decodeBytes(ArrayList<Byte> bytes) {
-        for (int i = 0; i < bytes.size(); i++) {
-            decodeMessage.add(bytes.get(i).getCharFromByte());
         }
     }
 }

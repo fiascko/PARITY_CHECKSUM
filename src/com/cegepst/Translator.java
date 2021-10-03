@@ -1,5 +1,7 @@
 package com.cegepst;
 
+import java.util.ArrayList;
+
 public class Translator {
 
     public String convertMessageToBinary(String textMessage) {
@@ -11,9 +13,10 @@ public class Translator {
         return bitsStream.toString();
     }
 
-//    public String convertBinaryToMessage(String encodeMessage) {
-
-//    }
-
-
+    public ArrayList<Character> convertBytesToCharacters(ArrayList<Byte> bytes, ArrayList<Character> decodeMessage) {
+        for (int i = 0; i < bytes.size(); i++) {
+            decodeMessage.add(bytes.get(i).getCharFromByte());
+        }
+        return decodeMessage;
+    }
 }
