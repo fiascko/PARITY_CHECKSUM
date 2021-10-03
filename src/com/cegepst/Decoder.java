@@ -8,6 +8,8 @@ public class Decoder {
     private Translator translator;
     private ParityManager parityManager;
 
+    private ArrayList<Character> decodeMessage;
+
     public Decoder(String binaryMessage) {
         initDecoder();
         decode(binaryMessage);
@@ -17,19 +19,18 @@ public class Decoder {
         bytes = new ArrayList<>();
         translator = new Translator();
         parityManager = new ParityManager();
+        decodeMessage = new ArrayList<>();
     }
 
     private void decode(String binaryMessage) {
         splitBitsStream(binaryMessage); // split les 0101011 en Byte de "010101011" (STRING)
-//        check si respect()
+//        check si respect() sinon dire corrompu SOUT
 //        checkIferrorDansles parity()
 //        siErrorRepareerreur()
-        eraseParityBits(); //effacer chaque parity bit
-//        effacer la ligne de parity
-
-//        translate() les charByte en char dans la string
-//        Sortir() system out
-
+        bytes = parityManager.eraseParityLines(bytes); // ajout des deux autre conditions
+        bytes = parityManager.eraseParityBits(bytes);
+        decodeBytes(bytes);
+        Output.displayDecodeResult(decodeMessage);
     }
 
     private void splitBitsStream(String bitsStream) {
@@ -40,9 +41,9 @@ public class Decoder {
         }
     }
 
-    private void eraseParityBits() {
-        for (int i = 0; i < bytes.size(); i++ ) {
-            bytes.get(i).setCharByte(parityManager.eraseParityBit(bytes.get(i).getCharByte()));
+    private void decodeBytes(ArrayList<Byte> bytes) {
+        for (int i = 0; i < bytes.size(); i++) {
+            decodeMessage.add(bytes.get(i).getCharFromByte());
         }
     }
 }

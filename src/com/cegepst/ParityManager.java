@@ -65,6 +65,22 @@ public class ParityManager {
         return bytesArray;
     }
 
+    public ArrayList<Byte> eraseParityLines(ArrayList<Byte> bytes) {
+        if (bytes.size() <= 9) {
+            int parityLine = bytes.size() - 1;
+            bytes.remove(parityLine);
+            return bytes;
+        }
+        return bytes;
+    }
+
+    public ArrayList<Byte> eraseParityBits(ArrayList<Byte> bytes) {
+        for (int i = 0; i < bytes.size(); i++ ) {
+            bytes.get(i).deleteParityCharByte(eraseParityBit(bytes.get(i).getCharByte()));
+        }
+        return bytes;
+    }
+
     public String eraseParityBit(String charByte) {
         return charByte.substring(0, charByte.length() - 1);
     }

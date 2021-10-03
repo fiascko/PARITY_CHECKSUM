@@ -47,4 +47,12 @@ public class Output {
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(encodeString, null);
     }
+
+    public static void displayDecodeResult(ArrayList<Character> bytes) {
+        System.out.println("I did this for you.\n");
+        for(int i = 0; i < bytes.size(); i++) {
+            System.out.print(bytes.get(i));
+        }
+        System.out.println("\n");
+    }
 }
