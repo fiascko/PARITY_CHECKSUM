@@ -27,8 +27,8 @@ public class Decoder {
 //        check si respect() sinon dire corrompu SOUT
 //        checkIferrorDansles parity()
 //        siErrorRepareerreur()
-        bytes = parityManager.eraseParityBits(bytes);
         bytes = parityManager.eraseParityLines(bytes);
+        bytes = parityManager.eraseParityBits(bytes);
         decodeMessage = translator.convertBytesToCharacters(bytes, decodeMessage);
         Output.displayDecodeResult(decodeMessage);
     }
