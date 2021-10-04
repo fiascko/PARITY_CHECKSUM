@@ -27,15 +27,13 @@ public class ParityManager {
         }
         int totalNumberOfByte = bytes.size() / 8;
         int numberOfByteRest = bytes.size() % 8;
-        int position2 = 0;
+        int position = 0;
 
         for (int i = 0; i < totalNumberOfByte; i++) {
-            int position = 0;
             ArrayList<Byte> tempoBytes = new ArrayList<Byte>();
             for (int j = 0; j < 8; j++) {
                 tempoBytes.add(bytes.get(position));
                 position++;
-                position2++;
             }
             tempoBytes = addParityLine(tempoBytes);
             encodeBytes.addAll(tempoBytes);
@@ -43,8 +41,8 @@ public class ParityManager {
         if (numberOfByteRest > 0) {
             ArrayList<Byte> tempoBytes2 = new ArrayList<Byte>();
             for (int i = 0; i < numberOfByteRest; i++) {
-                tempoBytes2.add(bytes.get(position2));
-                position2++;
+                tempoBytes2.add(bytes.get(position));
+                position++;
             }
             tempoBytes2 = addParityLine(tempoBytes2);
             encodeBytes.addAll(tempoBytes2);
@@ -53,24 +51,36 @@ public class ParityManager {
     }
 
     public ArrayList<Byte> eraseParityLines(ArrayList<Byte> bytes) {
-        if (bytes.size() <= 9) {
-            int parityLine = bytes.size() - 1;
-            bytes.remove(parityLine);
-            return bytes;
+        ArrayList<Byte> decodeBytes = bytes;
+
+        if (decodeBytes.size() <= 9) {
+            decodeBytes.remove(decodeBytes.size() - 1);
+            return decodeBytes;
         }
-//        int totalNumberOfByte = bytes.size() / 8;
-//        int numberOfByteRest = bytes.size() % 8;
 
+        int position = 0;
+        int totalNumberOfByte = decodeBytes.size() / 9;
+        int numberOfByteRest = decodeBytes.size() % 9;
 
-        return bytes;
+        for (int i = 0; i < decodeBytes.size(); i++) {
+            if (position % 9 == 0) {
+                decodeBytes.remove(decodeBytes.get(position));
+                position--;
+            }
+            position++;
+        }
+        if (numberOfByteRest > 0) {
+            decodeBytes.remove(decodeBytes.size() - 1);
+        }
+        return decodeBytes;
     }
 
     public ArrayList<Byte> addParityLine(ArrayList<Byte> bytesArray) {
         String parityLine = "";
-        for (int charIndex = 0; charIndex < 9; charIndex++) {
+        for (int i = 0; i < 9; i++) {
             String thisCol = "";
-            for (int byteIndex = 0; byteIndex < bytesArray.size(); byteIndex++) {
-                thisCol += bytesArray.get(byteIndex).getCharByte().charAt(charIndex);
+            for (int j = 0; j < bytesArray.size(); j++) {
+                thisCol += bytesArray.get(j).getCharByte().charAt(i);
             }
             parityLine += calculateParityBit(thisCol);
         }
@@ -89,3 +99,6 @@ public class ParityManager {
         return charByte.substring(0, charByte.length() - 1);
     }
 }
+
+
+

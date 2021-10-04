@@ -10,7 +10,7 @@ public class Checksum {
         }
     }
 
-    public boolean startOption(String option) {
+    private boolean startOption(String option) {
         if (option.equals(Input.DECODE)) {
             Output.displayDecodeMessage();
             new Decoder(Input.readBinaryMessage());

@@ -23,12 +23,12 @@ public class Decoder {
     }
 
     private void decode(String binaryMessage) {
-        splitBitsStream(binaryMessage); // split les 0101011 en Byte de "010101011" (STRING)
+        splitBitsStream(binaryMessage);
 //        check si respect() sinon dire corrompu SOUT
 //        checkIferrorDansles parity()
 //        siErrorRepareerreur()
-        bytes = parityManager.eraseParityLines(bytes); // ajout des deux autre conditions
         bytes = parityManager.eraseParityBits(bytes);
+        bytes = parityManager.eraseParityLines(bytes);
         decodeMessage = translator.convertBytesToCharacters(bytes, decodeMessage);
         Output.displayDecodeResult(decodeMessage);
     }
