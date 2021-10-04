@@ -50,6 +50,7 @@ public class ParityManager {
         return encodeBytes;
     }
 
+//    todo ici
     public ArrayList<Byte> eraseParityLines(ArrayList<Byte> bytes) {
         ArrayList<Byte> decodeBytes = bytes;
 
@@ -62,12 +63,13 @@ public class ParityManager {
         int totalNumberOfByte = decodeBytes.size() / 9;
         int numberOfByteRest = decodeBytes.size() % 9;
 
-        for (int i = 0; i < decodeBytes.size(); i++) {
-            if (position % 9 == 0) {
+        for (int i = 0; i <= decodeBytes.size(); i++) {
+            if (position % 9 == 0 && position != 0) {
                 decodeBytes.remove(decodeBytes.get(position));
                 position--;
+            } else {
+                position++;
             }
-            position++;
         }
         if (numberOfByteRest > 0) {
             decodeBytes.remove(decodeBytes.size() - 1);
