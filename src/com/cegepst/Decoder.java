@@ -13,7 +13,6 @@ public class Decoder {
     public Decoder(String binaryMessage) {
         initDecoder();
         decode(binaryMessage);
-        Output.displayDecodeResult(decodeMessage);
     }
 
     private void initDecoder() {
@@ -24,13 +23,18 @@ public class Decoder {
     }
 
     private void decode(String binaryMessage) {
-        splitBitsStream(binaryMessage);
-//        check si respect() sinon dire corrompu SOUT
-//        checkIferrorDansles parity()
-//        siErrorRepareerreur()
-        bytes = parityManager.eraseParityLines(bytes);
-        bytes = parityManager.eraseParityBits(bytes);
-        decodeMessage = translator.convertBytesToCharacters(bytes, decodeMessage);
+        boolean valideEncode = Input.validateEncodelength(binaryMessage);
+        if (valideEncode) {
+            splitBitsStream(binaryMessage);
+            //       checkIferrorDansles parity()
+            //        siErrorRepareerreur()
+            bytes = parityManager.eraseParityLines(bytes);
+            bytes = parityManager.eraseParityBits(bytes);
+            decodeMessage = translator.convertBytesToCharacters(bytes, decodeMessage);
+            Output.displayDecodeResult(decodeMessage);
+        } else {
+            Output.displayCorruptionMessage();
+        }
     }
 
     private void splitBitsStream(String bitsStream) {

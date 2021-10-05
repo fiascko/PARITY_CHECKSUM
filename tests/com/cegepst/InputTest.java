@@ -29,4 +29,11 @@ public class InputTest {
         String result = Input.validateOption(reader, "EXIT");
         assertEquals("EXIT", result);
     }
+
+    @Test
+    void VALIDATE_ENCODE_LENGTH() {
+        Boolean result = Input.validateEncodelength("010001000001100101011101101");
+        assertEquals(true, result);
+    }
+
 }

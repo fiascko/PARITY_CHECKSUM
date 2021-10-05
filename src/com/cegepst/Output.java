@@ -55,4 +55,8 @@ public class Output {
         }
         System.out.println("\n");
     }
+
+    protected static void displayCorruptionMessage() {
+        System.out.println("L'encodage binaire est corrompu.\n");
+    }
 }

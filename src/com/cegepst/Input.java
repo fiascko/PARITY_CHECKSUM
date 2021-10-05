@@ -56,4 +56,8 @@ public class Input {
         }
         return encodeMessage;
     }
+
+    protected static boolean validateEncodelength(String binaryMessage) {
+        return binaryMessage.length() % 9 == 0;
+    }
 }
