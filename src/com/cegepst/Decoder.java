@@ -13,6 +13,7 @@ public class Decoder {
     public Decoder(String binaryMessage) {
         initDecoder();
         decode(binaryMessage);
+        Output.displayDecodeResult(decodeMessage);
     }
 
     private void initDecoder() {
@@ -30,7 +31,6 @@ public class Decoder {
         bytes = parityManager.eraseParityLines(bytes);
         bytes = parityManager.eraseParityBits(bytes);
         decodeMessage = translator.convertBytesToCharacters(bytes, decodeMessage);
-        Output.displayDecodeResult(decodeMessage);
     }
 
     private void splitBitsStream(String bitsStream) {

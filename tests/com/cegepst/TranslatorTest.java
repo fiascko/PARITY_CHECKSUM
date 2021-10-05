@@ -9,10 +9,10 @@ public class TranslatorTest {
     private Translator translator;
 
     @BeforeEach
-    void setUp() {translator = new Translator();}
+    protected void setUp() {translator = new Translator();}
 
     @Test
-    void CONVERT_MESSAGE_TO_BINARY() {
+    protected void CONVERT_MESSAGE_TO_BINARY() {
         String result = translator.convertMessageToBinary("Jeremy");
         assertEquals("010010100110010101110010011001010110110101111001", result);
     }

@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 public class ParityManager {
 
-    public String calculateParityBit(String charByte) {
+    protected String calculateParityBit(String binaryValue) {
         int count = 0;
-        for(int i = 0; i < charByte.length(); i++) {
-            char bit = charByte.charAt(i);
+        for(int i = 0; i < binaryValue.length(); i++) {
+            char bit = binaryValue.charAt(i);
             if (Character.getNumericValue(bit) == 1) {
                 count++;
             }
@@ -19,7 +19,7 @@ public class ParityManager {
         }
     }
 
-    public ArrayList<Byte> addParityLines(ArrayList<Byte> bytes) {
+    protected ArrayList<Byte> addParityLines(ArrayList<Byte> bytes) {
         ArrayList<Byte> encodeBytes = new ArrayList<Byte>();
         if (bytes.size() <= 8) {
             encodeBytes = addParityLine(bytes);
@@ -50,7 +50,7 @@ public class ParityManager {
         return encodeBytes;
     }
 
-    public ArrayList<Byte> eraseParityLines(ArrayList<Byte> bytes) {
+    protected ArrayList<Byte> eraseParityLines(ArrayList<Byte> bytes) {
         ArrayList<Byte> decodeBytes = bytes;
         ArrayList<Byte> decodeBytesToRemove = new ArrayList<>();
 
@@ -75,7 +75,7 @@ public class ParityManager {
         return decodeBytes;
     }
 
-    public ArrayList<Byte> addParityLine(ArrayList<Byte> bytesArray) {
+    protected ArrayList<Byte> addParityLine(ArrayList<Byte> bytesArray) {
         String parityLine = "";
         for (int i = 0; i < 9; i++) {
             String thisCol = "";
@@ -88,15 +88,15 @@ public class ParityManager {
         return bytesArray;
     }
 
-    public ArrayList<Byte> eraseParityBits(ArrayList<Byte> bytes) {
+    protected ArrayList<Byte> eraseParityBits(ArrayList<Byte> bytes) {
         for (int i = 0; i < bytes.size(); i++ ) {
             bytes.get(i).deleteParityBinaryValue(eraseParityBit(bytes.get(i).getBinaryValue()));
         }
         return bytes;
     }
 
-    public String eraseParityBit(String charByte) {
-        return charByte.substring(0, charByte.length() - 1);
+    protected String eraseParityBit(String binaryValue) {
+        return binaryValue.substring(0, binaryValue.length() - 1);
     }
 }
 

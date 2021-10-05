@@ -14,6 +14,7 @@ public class Encoder {
     public Encoder(String textMessage) {
         initEncoder();
         encode(textMessage);
+        Output.displayEncodeResult(encodeBitsStream);
     }
 
     private void initEncoder() {
@@ -26,7 +27,6 @@ public class Encoder {
         bitsStream = translator.convertMessageToBinary(textMessage);
         splitBitsStream(bitsStream);
         encodeBitsStream = parityManager.addParityLines(bytes);
-        Output.displayEncodeResult(encodeBitsStream);
     }
 
     private void splitBitsStream(String bitsStream) {
