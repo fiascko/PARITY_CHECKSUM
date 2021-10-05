@@ -34,7 +34,7 @@ public class Encoder {
         String[] splitBits = bitsStream.split("(?<=\\G.{8})");
         for (int i = 0; i < byteCounter; i++) {
             bytes.add(new Byte(splitBits[i]));
-            bytes.get(i).setParityCharByte(parityManager.calculateParityBit(bytes.get(i).getCharByte()));
+            bytes.get(i).setParityBinaryValue(parityManager.calculateParityBit(bytes.get(i).getBinaryValue()));
         }
     }
 }

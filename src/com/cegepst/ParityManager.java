@@ -80,7 +80,7 @@ public class ParityManager {
         for (int i = 0; i < 9; i++) {
             String thisCol = "";
             for (int j = 0; j < bytesArray.size(); j++) {
-                thisCol += bytesArray.get(j).getCharByte().charAt(i);
+                thisCol += bytesArray.get(j).getBinaryValue().charAt(i);
             }
             parityLine += calculateParityBit(thisCol);
         }
@@ -90,7 +90,7 @@ public class ParityManager {
 
     public ArrayList<Byte> eraseParityBits(ArrayList<Byte> bytes) {
         for (int i = 0; i < bytes.size(); i++ ) {
-            bytes.get(i).deleteParityCharByte(eraseParityBit(bytes.get(i).getCharByte()));
+            bytes.get(i).deleteParityBinaryValue(eraseParityBit(bytes.get(i).getBinaryValue()));
         }
         return bytes;
     }

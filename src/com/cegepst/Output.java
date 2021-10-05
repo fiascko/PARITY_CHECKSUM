@@ -35,8 +35,8 @@ public class Output {
         String encodeCopy = "";
         System.out.println("I did this for you. (The message is copied to your keyboard)\n");
         for(int i = 0; i < bytes.size(); i++) {
-            System.out.print(bytes.get(i).getCharByte());
-            encodeCopy += bytes.get(i).getCharByte();
+            System.out.print(bytes.get(i).getBinaryValue());
+            encodeCopy += bytes.get(i).getBinaryValue();
         }
         copyToKeyboard(encodeCopy);
         System.out.println("\n");

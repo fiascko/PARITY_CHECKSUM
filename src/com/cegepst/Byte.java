@@ -2,26 +2,26 @@ package com.cegepst;
 
 public class Byte {
 
-    private String charByte;
+    private String binaryValue;
 
     public Byte(String bits) {
-        charByte = bits;
+        binaryValue = bits;
     }
 
-    public String getCharByte() {
-        return charByte;
+    public String getBinaryValue() {
+        return binaryValue;
     }
 
-    public void deleteParityCharByte(String newCharByte) {
-        charByte = newCharByte;
+    public void deleteParityBinaryValue(String newBinaryValue) {
+        binaryValue = newBinaryValue;
     }
 
-    public void setParityCharByte(String parityBit) {
-        charByte += parityBit;
+    public void setParityBinaryValue(String parityBit) {
+        binaryValue += parityBit;
     }
 
     public char getCharFromByte() {
-        int parseInt = Integer.parseInt(charByte, 2);
+        int parseInt = Integer.parseInt(binaryValue, 2);
         return (char)parseInt;
     }
 
