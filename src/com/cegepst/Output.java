@@ -42,7 +42,7 @@ public class Output {
         System.out.println("\n");
     }
 
-    protected static void copyToKeyboard(String encodeCopy) {
+    private static void copyToKeyboard(String encodeCopy) {
         StringSelection encodeString = new StringSelection(encodeCopy);
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(encodeString, null);
