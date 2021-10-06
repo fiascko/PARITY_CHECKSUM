@@ -10,6 +10,7 @@ public class Checksum {
         }
     }
 
+    //return la string et faire fun pour output
     private boolean startOption(String option) {
         if (option.equals(Input.DECODE)) {
             Output.displayDecodeMessage();

@@ -8,19 +8,19 @@ public class Byte {
         binaryValue = bits;
     }
 
-    protected String getBinaryValue() {
+    public String getBinaryValue() {
         return binaryValue;
     }
 
-    protected void deleteParityBinaryValue(String newBinaryValue) {
+    public void deleteParityBinaryValue(String newBinaryValue) {
         binaryValue = newBinaryValue;
     }
 
-    protected void setParityBinaryValue(String parityBit) {
+    public void setParityBinaryValue(String parityBit) {
         binaryValue += parityBit;
     }
 
-    protected char getCharFromByte() {
+    public char getCharFromByte() {
         int parseInt = Integer.parseInt(binaryValue, 2);
         return (char)parseInt;
     }

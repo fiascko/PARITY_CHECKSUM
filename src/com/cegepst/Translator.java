@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Translator {
 
-    protected String convertMessageToBinary(String textMessage) {
+    public String convertMessageToBinary(String textMessage) {
         StringBuilder bitsStream = new StringBuilder();
         char[] chars = textMessage.toCharArray();
         for (char aChar : chars) {
@@ -13,7 +13,7 @@ public class Translator {
         return bitsStream.toString();
     }
 
-    protected ArrayList<Character> convertBytesToCharacters(ArrayList<Byte> bytes, ArrayList<Character> decodeMessage) {
+    public ArrayList<Character> convertBytesToCharacters(ArrayList<Byte> bytes, ArrayList<Character> decodeMessage) {
         for (int i = 0; i < bytes.size(); i++) {
             decodeMessage.add(bytes.get(i).getCharFromByte());
         }

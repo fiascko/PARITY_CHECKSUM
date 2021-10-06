@@ -9,22 +9,22 @@ public class ParityManagerTest {
     private ParityManager parityManager;
 
     @BeforeEach
-    protected void setUp() {parityManager = new ParityManager();}
+    public void setUp() {parityManager = new ParityManager();}
 
     @Test
-    protected void CALCULATE_PARITY_BIT_EVEN() {
+    public void CALCULATE_PARITY_BIT_EVEN() {
         String result = parityManager.calculateParityBit("00101101");
         assertEquals("0", result);
     }
 
     @Test
-    protected void CALCULATE_PARITY_BIT_ODD() {
+    public void CALCULATE_PARITY_BIT_ODD() {
         String result = parityManager.calculateParityBit("01001010");
         assertEquals("1", result);
     }
 
     @Test
-    protected void ERASE_PARITY_BIT() {
+    public void ERASE_PARITY_BIT() {
         String result = parityManager.eraseParityBit("010010101");
         assertEquals("01001010", result);
     }
