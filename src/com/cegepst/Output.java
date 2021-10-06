@@ -36,14 +36,14 @@ public class Output {
         System.out.println(encodeMessage + "\n");
     }
 
+    public static void displayDecodeResult(String decodeMessage) {
+        System.out.println("I decoded this message for you. (The message is copied to your keyboard)\n");
+        System.out.println(decodeMessage+ "\n");
+    }
+
     private static void copyToKeyboard(String encodeCopy) {
         StringSelection encodeString = new StringSelection(encodeCopy);
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(encodeString, null);
-    }
-
-    public static void displayDecodeResult(String decodeMessage) {
-        System.out.println("I decoded this message for you. (The message is copied to your keyboard)\n");
-        System.out.println(decodeMessage+ "\n");
     }
 }
