@@ -10,31 +10,21 @@ public class Decoder {
 
     private ArrayList<Character> decodeMessage;
 
-    public Decoder(String binaryMessage) {
-        initDecoder();
-        decode(binaryMessage);
-    }
-
-    private void initDecoder() {
+    public Decoder() {
         bytes = new ArrayList<>();
         decodeMessage = new ArrayList<>();
         translator = new Translator();
         parityManager = new ParityManager();
     }
 
-    private void decode(String binaryMessage) {
-        boolean valideEncode = Input.validateEncodelength(binaryMessage);
-        if (valideEncode) {
-            splitBitsStream(binaryMessage);
-            //       checkIferrorDansles parity()
-            //        siErrorRepareerreur()
-            bytes = parityManager.eraseParityLines(bytes);
-            bytes = parityManager.eraseParityBits(bytes);
-            decodeMessage = translator.convertBytesToCharacters(bytes, decodeMessage);
-            Output.displayDecodeResult(decodeMessage);
-        } else {
-            Output.displayCorruptionMessage();
-        }
+    public String decode(String binaryMessage) {
+        splitBitsStream(binaryMessage);
+        //       checkIferrorDansles parity()
+        //        siErrorRepareerreur()
+        bytes = parityManager.eraseParityLines(bytes);
+        bytes = parityManager.eraseParityBits(bytes);
+        decodeMessage = translator.convertBytesToCharacters(bytes, decodeMessage);
+        return convertDecodeMessage();
     }
 
     private void splitBitsStream(String bitsStream) {
@@ -43,5 +33,13 @@ public class Decoder {
         for (int i = 0; i < byteCounter; i++) {
             bytes.add(new Byte(splitBits[i]));
         }
+    }
+
+    private String convertDecodeMessage(){
+        String decodeMessage = "";
+        for(int i = 0; i < bytes.size(); i++) {
+            decodeMessage += bytes.get(i).getCharFromByte();
+        }
+        return decodeMessage;
     }
 }

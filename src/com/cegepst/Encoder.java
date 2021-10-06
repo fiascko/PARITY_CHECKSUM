@@ -9,24 +9,19 @@ public class Encoder {
     private ParityManager parityManager;
 
     private ArrayList<Byte> bytes;
-    private ArrayList<Byte> encodeBitsStream;
+    private ArrayList<Byte> encodeBytesStream;
 
-    public Encoder(String textMessage) {
-        initEncoder();
-        encode(textMessage);
-    }
-
-    private void initEncoder() {
+    public Encoder() {
         bytes = new ArrayList<>();
         translator = new Translator();
         parityManager = new ParityManager();
     }
 
-    private void encode(String textMessage) {
+    public String encode(String textMessage) {
         bitsStream = translator.convertMessageToBinary(textMessage);
         splitBitsStream(bitsStream);
-        encodeBitsStream = parityManager.addParityLines(bytes);
-        Output.displayEncodeResult(encodeBitsStream);
+        encodeBytesStream = parityManager.addParityLines(bytes);
+        return convertEncodeBytesStream(encodeBytesStream);
     }
 
     private void splitBitsStream(String bitsStream) {
@@ -36,6 +31,14 @@ public class Encoder {
             bytes.add(new Byte(splitBits[i]));
             bytes.get(i).setParityBinaryValue(parityManager.calculateParityBit(bytes.get(i).getBinaryValue()));
         }
+    }
+
+    private String convertEncodeBytesStream(ArrayList<Byte> encodeBitsStream) {
+        String encodeMessage = "";
+        for(int i = 0; i < encodeBitsStream.size(); i++) {
+            encodeMessage += encodeBitsStream.get(i).getBinaryValue();
+        }
+        return encodeMessage;
     }
 }
 

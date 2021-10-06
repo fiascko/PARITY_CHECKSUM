@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class ParityManager {
 
-    protected String calculateParityBit(String binaryValue) {
+    public String calculateParityBit(String binaryValue) {
         int count = 0;
         for(int i = 0; i < binaryValue.length(); i++) {
             char bit = binaryValue.charAt(i);
@@ -19,7 +19,7 @@ public class ParityManager {
         }
     }
 
-    protected ArrayList<Byte> addParityLines(ArrayList<Byte> bytes) {
+    public ArrayList<Byte> addParityLines(ArrayList<Byte> bytes) {
         ArrayList<Byte> encodeBytes = new ArrayList<Byte>();
         if (bytes.size() <= 8) {
             encodeBytes = addParityLine(bytes);
@@ -50,7 +50,7 @@ public class ParityManager {
         return encodeBytes;
     }
 
-    protected ArrayList<Byte> eraseParityLines(ArrayList<Byte> bytes) {
+    public ArrayList<Byte> eraseParityLines(ArrayList<Byte> bytes) {
         ArrayList<Byte> decodeBytes = bytes;
         ArrayList<Byte> decodeBytesToRemove = new ArrayList<>();
 
@@ -75,7 +75,7 @@ public class ParityManager {
         return decodeBytes;
     }
 
-    protected ArrayList<Byte> addParityLine(ArrayList<Byte> bytesArray) {
+    public ArrayList<Byte> addParityLine(ArrayList<Byte> bytesArray) {
         String parityLine = "";
         for (int i = 0; i < 9; i++) {
             String thisCol = "";
@@ -88,14 +88,14 @@ public class ParityManager {
         return bytesArray;
     }
 
-    protected ArrayList<Byte> eraseParityBits(ArrayList<Byte> bytes) {
+    public ArrayList<Byte> eraseParityBits(ArrayList<Byte> bytes) {
         for (int i = 0; i < bytes.size(); i++ ) {
             bytes.get(i).deleteParityBinaryValue(eraseParityBit(bytes.get(i).getBinaryValue()));
         }
         return bytes;
     }
 
-    protected String eraseParityBit(String binaryValue) {
+    public String eraseParityBit(String binaryValue) {
         return binaryValue.substring(0, binaryValue.length() - 1);
     }
 }

@@ -13,11 +13,13 @@ public class Checksum {
     private boolean startOption(String option) {
         if (option.equals(Input.DECODE)) {
             Output.displayDecodeMessage();
-            new Decoder(Input.readBinaryMessage());
+            String decodeMessage = new Decoder().decode(Input.readBinaryMessage());
+            Output.displayDecodeResult(decodeMessage);
         }
         if (option.equals(Input.ENCODE)) {
             Output.displayEncodeMessage();
-            new Encoder(Input.readTextMessage());
+            String encodeMessage = new Encoder().encode(Input.readTextMessage());
+            Output.displayEncodeResult(encodeMessage);
         }
         if (option.equals(Input.EXIT)) {
             return false;
