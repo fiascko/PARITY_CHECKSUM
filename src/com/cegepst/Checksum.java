@@ -12,16 +12,24 @@ public class Checksum {
 
     private boolean startOption(String option) {
         if (option.equals(Input.DECODE)) {
-            Output.displayDecodeMessage();
-            String decodeMessage = new Decoder().decode(Input.readBinaryMessage());
-            Output.displayDecodeResult(decodeMessage);
+            decoding();
         }
         if (option.equals(Input.ENCODE)) {
-            Output.displayEncodeMessage();
-            String encodeMessage = new Encoder().encode(Input.readTextMessage());
-            Output.displayEncodeResult(encodeMessage);
+            encoding();
         }
         return !option.equals(Input.EXIT);
+    }
+
+    private void decoding() {
+        Output.displayDecodeMessage();
+        String decodeMessage = new Decoder().decode(Input.readBinaryMessage());
+        Output.displayDecodeResult(decodeMessage);
+    }
+
+    private void encoding() {
+        Output.displayEncodeMessage();
+        String encodeMessage = new Encoder().encode(Input.readTextMessage());
+        Output.displayEncodeResult(encodeMessage);
     }
 
     private String chooseAnOption() {

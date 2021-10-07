@@ -22,11 +22,13 @@ public class ParityManager {
     public ArrayList<Byte> addParityLines(ArrayList<Byte> bytes) {
         ArrayList<Byte> encodeBytes = new ArrayList<Byte>();
 
+        //une choses
         if (bytes.size() <= 8) {
             encodeBytes = addParityLine(bytes);
             return encodeBytes;
         }
 
+        //deux choses
         int totalNumberOfByte = bytes.size() / 8;
         int numberOfByteRest = bytes.size() % 8;
         int position = 0;
@@ -40,6 +42,7 @@ public class ParityManager {
             encodeBytes.addAll(tempoBytes);
         }
 
+        //trois choses
         if (numberOfByteRest > 0) {
             ArrayList<Byte> tempoBytes2 = new ArrayList<Byte>();
             for (int i = 0; i < numberOfByteRest; i++) {
@@ -69,11 +72,13 @@ public class ParityManager {
         ArrayList<Byte> decodeBytes = bytes;
         ArrayList<Byte> decodeBytesToRemove = new ArrayList<>();
 
+        //une chose
         if (decodeBytes.size() <= 9) {
             decodeBytes.remove(decodeBytes.size() - 1);
             return decodeBytes;
         }
 
+        //deux choses
         int totalNumberOfByte = decodeBytes.size() / 9;
         int numberOfByteRest = decodeBytes.size() % 9;
         for (int i = 1; i <= totalNumberOfByte; i++) {
@@ -83,6 +88,7 @@ public class ParityManager {
             decodeBytes.remove(currentByte);
         }
 
+        //trois choses
         if (numberOfByteRest > 0) {
             decodeBytes.remove(decodeBytes.size() - 1);
         }
