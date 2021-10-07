@@ -3,11 +3,9 @@ package com.cegepst;
 import java.util.ArrayList;
 
 public class Decoder {
-
     private ArrayList<Byte> bytes;
-    private Translator translator;
-    private ParityManager parityManager;
-
+    private final Translator translator;
+    private final ParityManager parityManager;
     private ArrayList<Character> decodeMessage;
 
     public Decoder() {
@@ -35,9 +33,9 @@ public class Decoder {
         }
     }
 
-    private String convertDecodeMessage(){
+    private String convertDecodeMessage() {
         String decodeMessage = "";
-        for(int i = 0; i < bytes.size(); i++) {
+        for (int i = 0; i < bytes.size(); i++) {
             decodeMessage += bytes.get(i).getCharFromByte();
         }
         return decodeMessage;

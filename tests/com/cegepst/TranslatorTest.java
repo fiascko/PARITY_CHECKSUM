@@ -2,6 +2,7 @@ package com.cegepst;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TranslatorTest {
@@ -9,7 +10,9 @@ public class TranslatorTest {
     private Translator translator;
 
     @BeforeEach
-    public void setUp() {translator = new Translator();}
+    public void SETUP() {
+        translator = new Translator();
+    }
 
     @Test
     public void CONVERT_MESSAGE_TO_BINARY_SHORT_MESSAGE() {

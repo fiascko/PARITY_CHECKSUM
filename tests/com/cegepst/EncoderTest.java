@@ -2,6 +2,7 @@ package com.cegepst;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EncoderTest {
@@ -9,7 +10,9 @@ public class EncoderTest {
     private Encoder encoder;
 
     @BeforeEach
-    public void setUp() {encoder = new Encoder();}
+    public void SETUP() {
+        encoder = new Encoder();
+    }
 
     @Test
     void ENCODE_LONG_MESSAGE() {

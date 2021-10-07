@@ -22,7 +22,6 @@ public class Byte {
 
     public char getCharFromByte() {
         int parseInt = Integer.parseInt(binaryValue, 2);
-        return (char)parseInt;
+        return (char) parseInt;
     }
-
 }

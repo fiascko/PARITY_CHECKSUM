@@ -2,7 +2,7 @@ package com.cegepst;
 
 public class Checksum {
 
-    public Checksum() {
+    public void start() {
         boolean checksum = true;
         while (checksum) {
             String option = chooseAnOption();
@@ -21,10 +21,7 @@ public class Checksum {
             String encodeMessage = new Encoder().encode(Input.readTextMessage());
             Output.displayEncodeResult(encodeMessage);
         }
-        if (option.equals(Input.EXIT)) {
-            return false;
-        }
-        return true;
+        return !option.equals(Input.EXIT);
     }
 
     private String chooseAnOption() {

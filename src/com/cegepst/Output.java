@@ -38,7 +38,7 @@ public class Output {
 
     public static void displayDecodeResult(String decodeMessage) {
         System.out.println("I decoded this message for you. (The message is copied to your keyboard)\n");
-        System.out.println(decodeMessage+ "\n");
+        System.out.println(decodeMessage + "\n");
     }
 
     private static void copyToKeyboard(String encodeCopy) {

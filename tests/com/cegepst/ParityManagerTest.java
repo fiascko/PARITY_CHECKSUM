@@ -2,6 +2,7 @@ package com.cegepst;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ParityManagerTest {
@@ -9,7 +10,9 @@ public class ParityManagerTest {
     private ParityManager parityManager;
 
     @BeforeEach
-    public void setUp() {parityManager = new ParityManager();}
+    public void SETUP() {
+        parityManager = new ParityManager();
+    }
 
     @Test
     public void CALCULATE_PARITY_BIT_EVEN() {

@@ -3,8 +3,6 @@ package com.cegepst;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Scanner;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DecoderTest {
@@ -12,7 +10,9 @@ public class DecoderTest {
     private Decoder decoder;
 
     @BeforeEach
-    public void setUp() {decoder = new Decoder();}
+    public void SETUP() {
+        decoder = new Decoder();
+    }
 
     @Test
     void DECODE_LONG_MESSAGE() {

@@ -29,30 +29,30 @@ public class Input {
 
     public static String validateOption(Scanner reader, String option) {
         if (!option.equalsIgnoreCase(ENCODE) && !option.equalsIgnoreCase(DECODE) && !option.equalsIgnoreCase(EXIT)) {
-            do{
+            do {
                 Output.displayOptionError();
                 option = reader.nextLine();
-            } while(!option.equalsIgnoreCase(ENCODE) && !option.equalsIgnoreCase(DECODE) && !option.equalsIgnoreCase(EXIT));
+            } while (!option.equalsIgnoreCase(ENCODE) && !option.equalsIgnoreCase(DECODE) && !option.equalsIgnoreCase(EXIT));
         }
         return option;
     }
 
     public static String validateBinaryMessage(Scanner reader, String decodeMessage) {
         if (!Pattern.matches("[0-1]+", decodeMessage) || decodeMessage.length() % 9 != 0) {
-            do{
+            do {
                 Output.displayBinaryMessageError();
                 decodeMessage = reader.nextLine();
-            } while(!Pattern.matches("[0-1]+", decodeMessage) || decodeMessage.length() % 9 != 0);
+            } while (!Pattern.matches("[0-1]+", decodeMessage) || decodeMessage.length() % 9 != 0);
         }
         return decodeMessage;
     }
 
     public static String validateTextMessage(Scanner reader, String encodeMessage) {
         if (encodeMessage.isEmpty() || Pattern.matches("[0-1]+", encodeMessage)) {
-            do{
+            do {
                 Output.displayTextMessageError();
                 encodeMessage = reader.nextLine();
-            } while(encodeMessage.isEmpty() || Pattern.matches("[0-1]+", encodeMessage));
+            } while (encodeMessage.isEmpty() || Pattern.matches("[0-1]+", encodeMessage));
         }
         return encodeMessage;
     }

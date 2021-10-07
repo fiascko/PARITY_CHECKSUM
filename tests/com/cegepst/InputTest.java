@@ -2,7 +2,9 @@ package com.cegepst;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.Scanner;
 
 public class InputTest {
@@ -10,7 +12,9 @@ public class InputTest {
     private Scanner reader;
 
     @BeforeEach
-    public void setUp() {reader = new Scanner(System.in);}
+    public void SETUP() {
+        reader = new Scanner(System.in);
+    }
 
     @Test
     public void VALIDATE_OPTION_ENCODE() {
@@ -41,10 +45,4 @@ public class InputTest {
         String result = Input.validateTextMessage(reader, "Je suis un paladin");
         assertEquals("Je suis un paladin", result);
     }
-
-//    @Test
-//    public void VALIDATE_ENCODE_LENGTH() {
-//        Boolean result = Input.validateEncodelength("010001000001100101011101101");
-//        assertEquals(true, result);
-//    }
 }

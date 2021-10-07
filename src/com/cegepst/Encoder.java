@@ -4,12 +4,9 @@ import java.util.ArrayList;
 
 public class Encoder {
 
-    private String bitsStream;
-    private Translator translator;
-    private ParityManager parityManager;
-
-    private ArrayList<Byte> bytes;
-    private ArrayList<Byte> encodeBytesStream;
+    private final Translator translator;
+    private final ParityManager parityManager;
+    private final ArrayList<Byte> bytes;
 
     public Encoder() {
         bytes = new ArrayList<>();
@@ -18,9 +15,9 @@ public class Encoder {
     }
 
     public String encode(String textMessage) {
-        bitsStream = translator.convertMessageToBinary(textMessage);
+        String bitsStream = translator.convertMessageToBinary(textMessage);
         splitBitsStream(bitsStream);
-        encodeBytesStream = parityManager.addParityLines(bytes);
+        ArrayList<Byte> encodeBytesStream = parityManager.addParityLines(bytes);
         return convertEncodeBytesStream(encodeBytesStream);
     }
 
@@ -35,7 +32,7 @@ public class Encoder {
 
     private String convertEncodeBytesStream(ArrayList<Byte> encodeBitsStream) {
         String encodeMessage = "";
-        for(int i = 0; i < encodeBitsStream.size(); i++) {
+        for (int i = 0; i < encodeBitsStream.size(); i++) {
             encodeMessage += encodeBitsStream.get(i).getBinaryValue();
         }
         return encodeMessage;
