@@ -38,8 +38,12 @@ public class Output {
     }
 
     public static void displayDecodeResult(String decodeMessage) {
-        System.out.println("I decoded this message for you.");
-        System.out.println(decodeMessage + "\n");
+        if (decodeMessage.equals("")) {
+            System.out.println("The message is corrupted.");
+        } else {
+            System.out.println("I decoded this message for you.");
+            System.out.println(decodeMessage + "\n");
+        }
     }
 
     private static void copyToKeyboard(String encodeCopy) {

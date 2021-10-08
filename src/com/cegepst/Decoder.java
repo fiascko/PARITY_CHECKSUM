@@ -19,11 +19,15 @@ public class Decoder {
 
     public String decode(String binaryMessage) {
         splitBitsStream(binaryMessage);
-        bytes = reparator.detectError(bytes);
-        bytes = parityManager.eraseParityLines(bytes);
-        bytes = parityManager.eraseParityBits(bytes);
-        decodeMessage = translator.convertBytesToCharacters(bytes, decodeMessage);
-        return convertDecodeMessage();
+        if (reparator.detectError(bytes, parityManager)) {
+//            parityManager.repair
+            bytes = parityManager.eraseParityLines(bytes);
+            bytes = parityManager.eraseParityBits(bytes);
+            decodeMessage = translator.convertBytesToCharacters(bytes, decodeMessage);
+            return convertDecodeMessage();
+        } else {
+            return "";
+        }
     }
 
     private void splitBitsStream(String bitsStream) {
