@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class ParityManager {
 
+    private int position = 0;
+
     public String calculateParityBit(String binaryValue) {
         int count = 0;
         for (int i = 0; i < binaryValue.length(); i++) {
@@ -19,20 +21,46 @@ public class ParityManager {
         }
     }
 
+    public ArrayList<Byte> eraseParityBits(ArrayList<Byte> bytes) {
+        for (int i = 0; i < bytes.size(); i++) {
+            bytes.get(i).deleteParityBinaryValue(eraseParityBit(bytes.get(i).getBinaryValue()));
+        }
+        return bytes;
+    }
+
+    public String eraseParityBit(String binaryValue) {
+        return binaryValue.substring(0, binaryValue.length() - 1);
+    }
+
     public ArrayList<Byte> addParityLines(ArrayList<Byte> bytes) {
         ArrayList<Byte> encodeBytes = new ArrayList<Byte>();
-
-        //une choses
+        int splitNumberOfByteRest = bytes.size() % 8;
         if (bytes.size() <= 8) {
-            encodeBytes = addParityLine(bytes);
-            return encodeBytes;
+            return addParityLine(bytes);
         }
+        encodeBytes = addCoreMessageLines(encodeBytes, bytes);
+        if (splitNumberOfByteRest > 0) {
+            encodeBytes = addMessageLastLine(encodeBytes, bytes, splitNumberOfByteRest);
+        }
+        return encodeBytes;
+    }
 
-        //deux choses
-        int totalNumberOfByte = bytes.size() / 8;
-        int numberOfByteRest = bytes.size() % 8;
-        int position = 0;
-        for (int i = 0; i < totalNumberOfByte; i++) {
+    public ArrayList<Byte> eraseParityLines(ArrayList<Byte> bytes) {
+        int numberOfByteRest = bytes.size() % 9;
+        if (bytes.size() <= 9) {
+            return eraseLastParityLine(bytes);
+        }
+        bytes = eraseCoreMessageLines(bytes);
+        if (numberOfByteRest > 0) {
+            bytes = eraseLastParityLine(bytes);
+        }
+        return bytes;
+    }
+
+    private ArrayList<Byte> addCoreMessageLines(ArrayList<Byte> encodeBytes, ArrayList<Byte> bytes) {
+        position = 0;
+        int splitNumberOfByte = bytes.size() / 8;
+        for (int i = 0; i < splitNumberOfByte; i++) {
             ArrayList<Byte> tempoBytes = new ArrayList<Byte>();
             for (int j = 0; j < 8; j++) {
                 tempoBytes.add(bytes.get(position));
@@ -41,21 +69,21 @@ public class ParityManager {
             tempoBytes = addParityLine(tempoBytes);
             encodeBytes.addAll(tempoBytes);
         }
-
-        //trois choses
-        if (numberOfByteRest > 0) {
-            ArrayList<Byte> tempoBytes2 = new ArrayList<Byte>();
-            for (int i = 0; i < numberOfByteRest; i++) {
-                tempoBytes2.add(bytes.get(position));
-                position++;
-            }
-            tempoBytes2 = addParityLine(tempoBytes2);
-            encodeBytes.addAll(tempoBytes2);
-        }
         return encodeBytes;
     }
 
-    public ArrayList<Byte> addParityLine(ArrayList<Byte> bytesArray) {
+    private ArrayList<Byte> addMessageLastLine(ArrayList<Byte> encodeBytes, ArrayList<Byte> bytes, int splitNumberOfByteRest) {
+        ArrayList<Byte> tempoBytes = new ArrayList<Byte>();
+        for (int i = 0; i < splitNumberOfByteRest; i++) {
+            tempoBytes.add(bytes.get(position));
+            position++;
+        }
+        tempoBytes = addParityLine(tempoBytes);
+        encodeBytes.addAll(tempoBytes);
+        return encodeBytes;
+    }
+
+    private ArrayList<Byte> addParityLine(ArrayList<Byte> bytesArray) {
         String parityLine = "";
         for (int i = 0; i < 9; i++) {
             String currentByteCol = "";
@@ -68,42 +96,22 @@ public class ParityManager {
         return bytesArray;
     }
 
-    public ArrayList<Byte> eraseParityLines(ArrayList<Byte> bytes) {
-        ArrayList<Byte> decodeBytes = bytes;
-        ArrayList<Byte> decodeBytesToRemove = new ArrayList<>();
+    private ArrayList<Byte> eraseCoreMessageLines(ArrayList<Byte> bytes) {
+        ArrayList<Byte> bytesToRemove = new ArrayList<>();
+        int totalNumberOfByte = bytes.size() / 9;
 
-        //une chose
-        if (decodeBytes.size() <= 9) {
-            decodeBytes.remove(decodeBytes.size() - 1);
-            return decodeBytes;
-        }
-
-        //deux choses
-        int totalNumberOfByte = decodeBytes.size() / 9;
-        int numberOfByteRest = decodeBytes.size() % 9;
         for (int i = 1; i <= totalNumberOfByte; i++) {
-            decodeBytesToRemove.add(decodeBytes.get(i * 9 - 1));
+            bytesToRemove.add(bytes.get(i * 9 - 1));
         }
-        for (Byte currentByte : decodeBytesToRemove) {
-            decodeBytes.remove(currentByte);
-        }
-
-        //trois choses
-        if (numberOfByteRest > 0) {
-            decodeBytes.remove(decodeBytes.size() - 1);
-        }
-        return decodeBytes;
-    }
-
-    public ArrayList<Byte> eraseParityBits(ArrayList<Byte> bytes) {
-        for (int i = 0; i < bytes.size(); i++) {
-            bytes.get(i).deleteParityBinaryValue(eraseParityBit(bytes.get(i).getBinaryValue()));
+        for (Byte currentByte : bytesToRemove) {
+            bytes.remove(currentByte);
         }
         return bytes;
     }
 
-    public String eraseParityBit(String binaryValue) {
-        return binaryValue.substring(0, binaryValue.length() - 1);
+    private ArrayList<Byte> eraseLastParityLine(ArrayList<Byte> bytes) {
+        bytes.remove(bytes.size() - 1);
+        return bytes;
     }
 }
 

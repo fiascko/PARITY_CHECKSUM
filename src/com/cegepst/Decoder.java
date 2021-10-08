@@ -4,11 +4,13 @@ import java.util.ArrayList;
 
 public class Decoder {
     private ArrayList<Byte> bytes;
+    private Reparator reparator;
     private final Translator translator;
     private final ParityManager parityManager;
     private ArrayList<Character> decodeMessage;
 
     public Decoder() {
+        reparator = new Reparator();
         bytes = new ArrayList<>();
         decodeMessage = new ArrayList<>();
         translator = new Translator();
@@ -17,8 +19,7 @@ public class Decoder {
 
     public String decode(String binaryMessage) {
         splitBitsStream(binaryMessage);
-        //       checkIferrorDansles parity()
-        //        siErrorRepareerreur()
+        bytes = reparator.detectError(bytes);
         bytes = parityManager.eraseParityLines(bytes);
         bytes = parityManager.eraseParityBits(bytes);
         decodeMessage = translator.convertBytesToCharacters(bytes, decodeMessage);

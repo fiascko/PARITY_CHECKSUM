@@ -3,6 +3,7 @@ package com.cegepst;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
+import java.util.Scanner;
 
 public class Output {
 
@@ -31,13 +32,13 @@ public class Output {
     }
 
     public static void displayEncodeResult(String encodeMessage) {
-        System.out.println("I encoded this for you. (The message is copied to your keyboard)\n");
+        System.out.println("I encoded this for you. (The message is copied to your keyboard)");
         copyToKeyboard(encodeMessage);
         System.out.println(encodeMessage + "\n");
     }
 
     public static void displayDecodeResult(String decodeMessage) {
-        System.out.println("I decoded this message for you. (The message is copied to your keyboard)\n");
+        System.out.println("I decoded this message for you.");
         System.out.println(decodeMessage + "\n");
     }
 
