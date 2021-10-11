@@ -3,7 +3,6 @@ package com.cegepst;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
-import java.util.Scanner;
 
 public class Output {
 
