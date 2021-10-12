@@ -41,7 +41,7 @@ public class ParityManagerTest {
     }
 
     @Test
-    public void ADD_PARITY_LINES_SHORT_MESSAGE() {
+    public void ADD_PARITY_LINE_SHORT_MESSAGE() {
         ArrayList<Byte> bytes = initShortArray();
         ArrayList<Byte> result = parityManager.addParityLines(bytes);
         assertEquals("010010101", bytes.get(0).getBinaryValue());
@@ -54,6 +54,20 @@ public class ParityManagerTest {
         assertEquals("000110011", bytes.get(7).getBinaryValue());
     }
 
+    @Test
+    public void ERASE_PARITY_LINE_SHORT_MESSAGE() {
+        ArrayList<Byte> bytes = initShortArrayWithParityLine();
+        ArrayList<Byte> result = parityManager.eraseParityLines(initShortArrayWithParityLine());
+        assertEquals(bytes.size() - 1,  result.size());
+    }
+
+//    @Test
+//    public void ERASE_PARITY_LINES_LONG_MESSAGE() {
+//        ArrayList<Byte> bytes = initShortArrayWithParityLine();
+//        ArrayList<Byte> result = parityManager.eraseParityLines(initShortArrayWithParityLine());
+//        assertEquals(bytes.size() - 1,  result.size());
+//    }
+
     //    @Test
 //    public void ADD_PARITY_LINES_LONG_MESSAGE() {
 //        ArrayList<Byte> bytes = initLongArray();
@@ -63,6 +77,13 @@ public class ParityManagerTest {
 //    }
 
 //    private ArrayList<Byte> initLongArray() {
+//        ArrayList<Byte> bytes = new ArrayList<Byte>();
+//        bytes.add(new Byte("010010101"));
+//
+//        return bytes;
+//    }
+
+    //    private ArrayList<Byte> initLongArrayWithParityLines() {
 //        ArrayList<Byte> bytes = new ArrayList<Byte>();
 //        bytes.add(new Byte("010010101"));
 //
@@ -80,4 +101,22 @@ public class ParityManagerTest {
         bytes.add(new Byte("011101000"));
         return bytes;
     }
+
+    private ArrayList<Byte> initShortArrayWithParityLine() {
+        ArrayList<Byte> bytes = new ArrayList<Byte>();
+        bytes.add(new Byte("011010100"));
+        bytes.add(new Byte("011001010"));
+        bytes.add(new Byte("001000001"));
+        bytes.add(new Byte("011101000"));
+        bytes.add(new Byte("011001010"));
+        bytes.add(new Byte("011100111"));
+        bytes.add(new Byte("011101000"));
+        bytes.add(new Byte("001110010"));
+        return bytes;
+    }
+
+//    private ArrayList<Byte> initLongArrayWithParityLine() {
+//        ArrayList<Byte> bytes = new ArrayList<Byte>();
+//        return bytes;
+//    }
 }
