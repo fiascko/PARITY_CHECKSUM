@@ -3,8 +3,9 @@ package com.cegepst;
 import java.util.ArrayList;
 
 public class Decoder {
+
     private ArrayList<Byte> bytes;
-    private Reparator reparator;
+    private final Reparator reparator;
     private final Translator translator;
     private final ParityManager parityManager;
     private ArrayList<Character> decodeMessage;

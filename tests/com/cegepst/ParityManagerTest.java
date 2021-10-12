@@ -27,8 +27,14 @@ public class ParityManagerTest {
     }
 
     @Test
-    public void ERASE_PARITY_BIT() {
+    public void ERASE_PARITY_BIT_EVEN() {
         String result = parityManager.eraseParityBit("010010101");
         assertEquals("01001010", result);
+    }
+
+    @Test
+    public void ERASE_PARITY_BIT_ODD() {
+        String result = parityManager.eraseParityBit("010011100");
+        assertEquals("01001110", result);
     }
 }

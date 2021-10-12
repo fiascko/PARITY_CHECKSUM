@@ -4,16 +4,15 @@ import java.util.ArrayList;
 
 public class Reparator {
 
-    int position = 0;
-    boolean detect = true;
+    private int position = 0;
+    private boolean detect = true;
 
     public Boolean detectError(ArrayList<Byte> bytes, ParityManager parityManager) {
         if (bytes.size() <= 9) {
             detect = detectShortMessage(bytes, parityManager);
         }
         detect = detectCoreMessage(bytes, parityManager);
-        int numberOfByteRest = bytes.size() % 9;
-        if (numberOfByteRest > 0) {
+        if (bytes.size() % 9 > 0) {
             detect = detectLastMessage(bytes, parityManager);
         }
         return detect;
@@ -34,10 +33,8 @@ public class Reparator {
     }
 
     private boolean detectCoreMessage(ArrayList<Byte> bytes, ParityManager parityManager) {
-        int splitNumberOfByte = bytes.size() / 9;
-        int cpt = 0;
-        for (int i = 0; i < splitNumberOfByte; i++) {
-            cpt = 0;
+        for (int i = 0; i < bytes.size() / 9; i++) {
+            int cpt = 0;
             for (int j = 0; j < 8; j++) {
                 String currentByteparityBit = parityManager.calculateParityBit(bytes.get(position).getBinaryValue().substring(0, bytes.get(position).getBinaryValue().length() - 1));
                 if (!currentByteparityBit.equals(bytes.get(position).getBinaryValue().substring(bytes.get(position).getBinaryValue().length() - 1))) {

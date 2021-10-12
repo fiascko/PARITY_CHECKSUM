@@ -34,33 +34,19 @@ public class ParityManager {
 
     public ArrayList<Byte> addParityLines(ArrayList<Byte> bytes) {
         ArrayList<Byte> encodeBytes = new ArrayList<Byte>();
-        int splitNumberOfByteRest = bytes.size() % 8;
         if (bytes.size() <= 8) {
             return addParityLine(bytes);
         }
         encodeBytes = addCoreMessageLines(encodeBytes, bytes);
-        if (splitNumberOfByteRest > 0) {
-            encodeBytes = addMessageLastLine(encodeBytes, bytes, splitNumberOfByteRest);
+        if (bytes.size() % 8 > 0) {
+            encodeBytes = addMessageLastLine(encodeBytes, bytes, bytes.size() % 8);
         }
         return encodeBytes;
     }
 
-    public ArrayList<Byte> eraseParityLines(ArrayList<Byte> bytes) {
-        int numberOfByteRest = bytes.size() % 9;
-        if (bytes.size() <= 9) {
-            return eraseLastParityLine(bytes);
-        }
-        bytes = eraseCoreMessageLines(bytes);
-        if (numberOfByteRest > 0) {
-            bytes = eraseLastParityLine(bytes);
-        }
-        return bytes;
-    }
-
     private ArrayList<Byte> addCoreMessageLines(ArrayList<Byte> encodeBytes, ArrayList<Byte> bytes) {
         position = 0;
-        int splitNumberOfByte = bytes.size() / 8;
-        for (int i = 0; i < splitNumberOfByte; i++) {
+        for (int i = 0; i < bytes.size() / 8; i++) {
             ArrayList<Byte> tempoBytes = new ArrayList<Byte>();
             for (int j = 0; j < 8; j++) {
                 tempoBytes.add(bytes.get(position));
@@ -72,9 +58,9 @@ public class ParityManager {
         return encodeBytes;
     }
 
-    private ArrayList<Byte> addMessageLastLine(ArrayList<Byte> encodeBytes, ArrayList<Byte> bytes, int splitNumberOfByteRest) {
+    private ArrayList<Byte> addMessageLastLine(ArrayList<Byte> encodeBytes, ArrayList<Byte> bytes, int bytesRest) {
         ArrayList<Byte> tempoBytes = new ArrayList<Byte>();
-        for (int i = 0; i < splitNumberOfByteRest; i++) {
+        for (int i = 0; i < bytesRest; i++) {
             tempoBytes.add(bytes.get(position));
             position++;
         }
@@ -96,11 +82,20 @@ public class ParityManager {
         return bytesArray;
     }
 
+    public ArrayList<Byte> eraseParityLines(ArrayList<Byte> bytes) {
+        if (bytes.size() <= 9) {
+            return eraseLastParityLine(bytes);
+        }
+        bytes = eraseCoreMessageLines(bytes);
+        if (bytes.size() % 9 > 0) {
+            bytes = eraseLastParityLine(bytes);
+        }
+        return bytes;
+    }
+
     private ArrayList<Byte> eraseCoreMessageLines(ArrayList<Byte> bytes) {
         ArrayList<Byte> bytesToRemove = new ArrayList<>();
-        int totalNumberOfByte = bytes.size() / 9;
-
-        for (int i = 1; i <= totalNumberOfByte; i++) {
+        for (int i = 1; i <= bytes.size() / 9; i++) {
             bytesToRemove.add(bytes.get(i * 9 - 1));
         }
         for (Byte currentByte : bytesToRemove) {
