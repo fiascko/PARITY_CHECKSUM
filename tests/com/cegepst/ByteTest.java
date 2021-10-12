@@ -12,4 +12,11 @@ public class ByteTest {
         char result = byteChar.getCharFromByte();
         assertEquals('j', result);
     }
+
+    @Test
+    void GET_BINARY_VALUE() {
+        Byte byteChar = new Byte("01101010");
+        String result = byteChar.getBinaryValue();
+        assertEquals("01101010", result);
+    }
 }
