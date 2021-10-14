@@ -4,69 +4,116 @@ import java.util.ArrayList;
 
 public class Reparator {
 
-    private int position = 0;
-    private boolean detect = true;
+    private int detectIndex = 0;
 
     public Boolean detectError(ArrayList<Byte> bytes, ParityManager parityManager) {
         if (bytes.size() <= 9) {
-            detect = detectShortMessage(bytes, parityManager);
+            if (detectShortMessage(bytes, parityManager)) {
+                return true;
+            }
         }
-        detect = detectCoreMessage(bytes, parityManager);
+        if (detectCoreMessage(bytes, parityManager)) {
+            return true;
+        }
         if (bytes.size() % 9 > 0) {
-            detect = detectLastMessage(bytes, parityManager);
+            if (detectMessageEnd(bytes, parityManager)) {
+                return true;
+            }
         }
-        return detect;
+//        if(detectByte(bytes, parityManager)) { //savoir si 2 dans le meme byte on changer
+//            return = true;
+//        }
+        return false;
     }
 
+//    private boolean detectByte(ArrayList<Byte> bytes, ParityManager parityManager) {
+//        for (int i = 0; i < bytes.size(); i++) {
+//
+//        }
+//    }
+
     private boolean detectShortMessage(ArrayList<Byte> bytes, ParityManager parityManager) {
-        int cpt = 0;
-        for (Byte currentByte : bytes) {
-            String currentByteparityBit = parityManager.calculateParityBit(currentByte.getBinaryValue().substring(0, currentByte.getBinaryValue().length() - 1));
-            if (!currentByteparityBit.equals(currentByte.getBinaryValue().substring(currentByte.getBinaryValue().length() - 1))) {
-                cpt++;
-                if (cpt == 2) {
-                    return false;
+        int counter = 0;
+        for (int i = 0; i < bytes.size(); i++) {
+            String desiredByteParityBit = getDesiredByteParityBit(bytes, parityManager, i);
+            if (!desiredByteParityBit.equals(getCurrentParityBit(bytes, i))) {
+                counter++;
+                if (counter == 2) {
+                    return true;
                 }
             }
         }
-        return true;
+        return false;
     }
 
     private boolean detectCoreMessage(ArrayList<Byte> bytes, ParityManager parityManager) {
         for (int i = 0; i < bytes.size() / 9; i++) {
-            int cpt = 0;
+            int counter = 0;
             for (int j = 0; j < 8; j++) {
-                String currentByteparityBit = parityManager.calculateParityBit(bytes.get(position).getBinaryValue().substring(0, bytes.get(position).getBinaryValue().length() - 1));
-                if (!currentByteparityBit.equals(bytes.get(position).getBinaryValue().substring(bytes.get(position).getBinaryValue().length() - 1))) {
-                    cpt++;
-                    if (cpt == 2) {
-                        return false;
+                String currentByteParityBit = getDesiredByteParityBit(bytes, parityManager, detectIndex);
+                if (!currentByteParityBit.equals(getCurrentParityBit(bytes, detectIndex))) {
+                    counter++;
+                    if (counter == 2) {
+                        return true;
                     }
                 }
-                position++;
+                detectIndex++;
             }
         }
-        return true;
+        return false;
     }
 
-    private boolean detectLastMessage(ArrayList<Byte> bytes, ParityManager parityManager) {
-        int cpt = 0;
-        for (int j = position; j < bytes.size() - 1; j++) {
-            String currentByteparityBit = parityManager.calculateParityBit(bytes.get(position).getBinaryValue().substring(0, bytes.get(position).getBinaryValue().length() - 1));
-            if (!currentByteparityBit.equals(bytes.get(position).getBinaryValue().substring(bytes.get(position).getBinaryValue().length() - 1))) {
-                cpt++;
-                if (cpt == 2) {
-                    return false;
+    private boolean detectMessageEnd(ArrayList<Byte> bytes, ParityManager parityManager) {
+        int counter = 0;
+        for (int j = detectIndex; j < bytes.size() - 1; j++) {
+            String currentByteparityBit = getDesiredByteParityBit(bytes, parityManager, detectIndex);
+            if (!currentByteparityBit.equals(getCurrentParityBit(bytes, detectIndex))) {
+                counter++;
+                if (counter == 2) {
+                    return true;
                 }
             }
-            position++;
+            detectIndex++;
         }
-        return true;
+        return false;
+    }
+
+
+
+
+//    public ArrayList<Byte> repair(ArrayList<Byte> bytes, ParityManager parityManager) {
+//        if (bytes.size() <= 9) { //ok
+//            for (int i = 0; i < bytes.size() - 1; i++) {//ok
+//                int position = 0; //
+//                String CalculateCurrentByteParityBit = getCalculateCurrentParityBit(bytes, parityManager, i);
+//                if (!CalculateCurrentByteParityBit.equals(getCurrentParityBit(bytes, i))) {
+//                    String currentByteCol = "";//ok
+//                    for (int j = 0; j < bytes.size() - 1; j++) { //ok
+//                        currentByteCol += bytes.get(j).getBinaryValue().charAt(i);//ok
+//                    }
+//                    if (!getCalculateColParityBit(currentByteCol, parityManager, bytes, position)) {
+//                        bytes.get(position).toggleChar(i); // ICI ????
+//                        return bytes;
+//                    }
+//                    position++;
+//                }
+//            }
+//        }
+//        return bytes;
+//    }
+
+    private String getDesiredByteParityBit(ArrayList<Byte> bytes, ParityManager parityManager, int i) {
+        return parityManager.calculateParityBit(bytes.get(i).getBinaryValue().substring(0, bytes.get(i).getByteLength() - 1));
+    }
+
+    private String getCurrentParityBit(ArrayList<Byte> bytes, int i) {
+        return bytes.get(i).getBinaryValue().substring(bytes.get(i).getByteLength() - 1);
+    }
+
+    private Boolean validColParityBit(String currentByteCol, ParityManager parityManager, ArrayList<Byte> bytes, int position) {
+        return parityManager.calculateParityBit(currentByteCol).equals(bytes.get(position).getBinaryValue().substring(bytes.get(position).getByteLength() -1));
     }
 }
-//    private void repareError() {
-//
-//    }
 
 
 

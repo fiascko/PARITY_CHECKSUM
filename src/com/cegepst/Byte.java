@@ -12,6 +12,10 @@ public class Byte {
         return binaryValue;
     }
 
+    public int getByteLength() {
+        return binaryValue.length();
+    }
+
     public void deleteParityBinaryValue(String newBinaryValue) {
         binaryValue = newBinaryValue;
     }
@@ -23,5 +27,15 @@ public class Byte {
     public char getCharFromByte() {
         int parseInt = Integer.parseInt(binaryValue, 2);
         return (char) parseInt;
+    }
+
+    public void toggleChar(int i) {
+        StringBuilder newBinaryValue = new StringBuilder(binaryValue);
+        if (newBinaryValue.charAt(i) == '1') {
+            newBinaryValue.setCharAt(i, '0');
+        } else {
+            newBinaryValue.setCharAt(i, '1');
+        }
+        this.binaryValue = newBinaryValue.toString();
     }
 }

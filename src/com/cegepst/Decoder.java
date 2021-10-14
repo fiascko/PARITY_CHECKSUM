@@ -20,8 +20,8 @@ public class Decoder {
 
     public String decode(String binaryMessage) {
         splitBitsStream(binaryMessage);
-        if (reparator.detectError(bytes, parityManager)) {
-//            parityManager.repair
+        if (!reparator.detectError(bytes, parityManager)) {
+//            bytes = reparator.repair(bytes, parityManager);
             bytes = parityManager.eraseParityLines(bytes);
             bytes = parityManager.eraseParityBits(bytes);
             decodeMessage = translator.convertBytesToCharacters(bytes, decodeMessage);
