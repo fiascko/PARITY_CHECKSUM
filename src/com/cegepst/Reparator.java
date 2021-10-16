@@ -57,6 +57,9 @@ public class Reparator {
 
     private boolean detectCoreMessage(ArrayList<Byte> bytes, ParityManager parityManager) {
         for (int i = 0; i < bytes.size() / 9; i++) {
+            if (detectIndex != 0) { // ???
+                detectIndex++; //
+            }//
             int counter = 0;
             for (int j = 0; j < 8; j++) {
                 String currentByteParityBit = getDesiredByteParityBit(bytes, parityManager, detectIndex);
@@ -67,6 +70,26 @@ public class Reparator {
                     }
                 }
                 detectIndex++;
+            }
+            if (detectCoreMessageByte(bytes, parityManager)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean detectCoreMessageByte(ArrayList<Byte> bytes, ParityManager parityManager) {
+        int counter = 0;
+        for (int i = 0; i < 9; i++ ) {
+            String currentByteCol = "";
+            for (int j = detectIndex - 8; j <= detectIndex; j++) {
+                currentByteCol += bytes.get(j).getBinaryValue().charAt(i);
+            }
+            if (!validColParityBit(currentByteCol, parityManager)) {
+                counter++;
+                if (counter > 1) {
+                    return true;
+                }
             }
         }
         return false;
@@ -85,26 +108,25 @@ public class Reparator {
             }
             detectIndex++;
         }
-        return false;
-//        return detectEndMessageByte(bytes, parityManager, start);
+        return detectEndMessageByte(bytes, parityManager, start);
     }
 
-//    private boolean detectEndMessageByte(ArrayList<Byte> bytes, ParityManager parityManager, int start) {
-//        int counter = 0;
-//        for (int i = 0; i < 9; i++ ) {
-//            String currentByteCol = "";
-//            for (int j = start; j < bytes.size(); j++) {
-//                currentByteCol += bytes.get(j).getBinaryValue().charAt(i);
-//            }
-//            if (!validColParityBit(currentByteCol, parityManager)) {
-//                counter++;
-//                if (counter > 1) {
-//                    return true;
-//                }
-//            }
-//        }
-//        return false;
-//    }
+    private boolean detectEndMessageByte(ArrayList<Byte> bytes, ParityManager parityManager, int start) {
+        int counter = 0;
+        for (int i = 0; i < 9; i++ ) {
+            String currentByteCol = "";
+            for (int j = start + 1; j < bytes.size(); j++) {
+                currentByteCol += bytes.get(j).getBinaryValue().charAt(i);
+            }
+            if (!validColParityBit(currentByteCol, parityManager)) {
+                counter++;
+                if (counter > 1) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
     public ArrayList<Byte> repair(ArrayList<Byte> bytes, ParityManager parityManager) {
         if (bytes.size() <= 9) {
@@ -140,31 +162,6 @@ public class Reparator {
         }
         return bytes;
     }
-
-
-
-
-
-//    private boolean detectCoreMessageByte(ArrayList<Byte> bytes, ParityManager parityManager) {
-//        int counter = 0;
-//        for (int i = 0; i < 9; i++ ) {
-//            String currentByteCol = "";
-//            for (int j = detectIndex; j < detectIndex + 9; j++) {
-//                currentByteCol += bytes.get(j).getBinaryValue().charAt(i);
-//            }
-//            if (!validColParityBit(currentByteCol, parityManager)) {
-//                counter++;
-//                if (counter > 1) {
-//                    return true;
-//                }
-//            }
-//        }
-//        return false;
-//    }
-
-
-
-
 
     private String getDesiredByteParityBit(ArrayList<Byte> bytes, ParityManager parityManager, int i) {
         return parityManager.calculateParityBit(bytes.get(i).getBinaryValue().substring(0, bytes.get(i).getByteLength() - 1));

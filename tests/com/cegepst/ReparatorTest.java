@@ -37,6 +37,18 @@ public class ReparatorTest {
     }
 
     @Test
+    public void DETECT_LONG_MESSAGE_BYTE_END_ERROR() {
+        Boolean result = reparator.detectError(initLongArrayErrorByteEnd(), parityManager);
+        assertEquals(true, result);
+    }
+
+    @Test
+    public void DETECT_LONG_MESSAGE_BYTE_CORE_ERROR() {
+        Boolean result = reparator.detectError(initLongArrayErrorByteCore(), parityManager);
+        assertEquals(true, result);
+    }
+
+    @Test
     public void DETECT_LONG_MESSAGE_ERROR() {
         Boolean result = reparator.detectError(initLongArrayError(), parityManager);
         assertEquals(true, result);
@@ -59,6 +71,9 @@ public class ReparatorTest {
         ArrayList<Byte> result = reparator.repair(initShortArrayReparable(), parityManager);
         assertEquals("011001010", result.get(1).getBinaryValue());
     }
+
+    //reparable core
+    //reparable end
 
     private ArrayList<Byte> initShortArray() {
         ArrayList<Byte> bytes = new ArrayList<Byte>();
@@ -144,6 +159,44 @@ public class ReparatorTest {
         bytes.add(new Byte("000110011"));
         bytes.add(new Byte("011001111"));
         bytes.add(new Byte("011100100"));
+        bytes.add(new Byte("011011110"));
+        bytes.add(new Byte("011100111"));
+        bytes.add(new Byte("000010010"));
+        return bytes;
+    }
+
+    private ArrayList<Byte> initLongArrayErrorByteCore() {
+        ArrayList<Byte> bytes = new ArrayList<Byte>();
+        bytes.add(new Byte("011010100"));
+        bytes.add(new Byte("011001010"));
+        bytes.add(new Byte("010000001"));//second 1 false - third 0 false
+        bytes.add(new Byte("011101000"));
+        bytes.add(new Byte("011001010"));
+        bytes.add(new Byte("011100111"));
+        bytes.add(new Byte("011101000"));
+        bytes.add(new Byte("001000001"));
+        bytes.add(new Byte("000110011"));
+        bytes.add(new Byte("011001111"));
+        bytes.add(new Byte("011100100"));
+        bytes.add(new Byte("011011110"));
+        bytes.add(new Byte("011100111"));
+        bytes.add(new Byte("000010010"));
+        return bytes;
+    }
+
+    private ArrayList<Byte> initLongArrayErrorByteEnd() {
+        ArrayList<Byte> bytes = new ArrayList<Byte>();
+        bytes.add(new Byte("011010100"));
+        bytes.add(new Byte("011001010"));
+        bytes.add(new Byte("001000001"));
+        bytes.add(new Byte("011101000"));
+        bytes.add(new Byte("011001010"));
+        bytes.add(new Byte("011100111"));
+        bytes.add(new Byte("011101000"));
+        bytes.add(new Byte("001000001"));
+        bytes.add(new Byte("000110011"));
+        bytes.add(new Byte("011001111"));
+        bytes.add(new Byte("000100100"));//second 0 false - third 0 false
         bytes.add(new Byte("011011110"));
         bytes.add(new Byte("011100111"));
         bytes.add(new Byte("000010010"));
