@@ -17,6 +17,24 @@ public class ParityManagerTest {
     }
 
     @Test
+    public void GET_DESIRED_PARITY_BIT() {
+        String result = parityManager.getDesiredByteParityBit(initShortArray(), parityManager, 4);
+        assertEquals("0", result);
+    }
+
+    @Test
+    public void GET_CURRENT_PARITY_BIT() {
+        String result = parityManager.getCurrentParityBit(initShortArray(), 3);
+        assertEquals("0", result);
+    }
+
+    @Test
+    public void VALIDATE_COL_PARITY_BIT() {
+        boolean result = parityManager.validateColParityBit(initShortArray().get(1).getBinaryValue(), parityManager);
+        assertEquals(true, result);
+    }
+
+    @Test
     public void CALCULATE_PARITY_BIT_EVEN() {
         String result = parityManager.calculateParityBit("00101101");
         assertEquals("0", result);

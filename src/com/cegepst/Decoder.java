@@ -7,10 +7,12 @@ public class Decoder {
     private ArrayList<Byte> bytes;
     private final Reparator reparator;
     private final Translator translator;
+    private final Detector detector;
     private final ParityManager parityManager;
     private ArrayList<Character> decodeMessage;
 
     public Decoder() {
+        detector = new Detector();
         reparator = new Reparator();
         bytes = new ArrayList<>();
         decodeMessage = new ArrayList<>();
@@ -20,8 +22,8 @@ public class Decoder {
 
     public String decode(String binaryMessage) {
         splitBitsStream(binaryMessage);
-        if (!reparator.detectError(bytes, parityManager)) { // DETECT LE BYTE 2 error
-            bytes = reparator.repair(bytes, parityManager); // RESTE CA
+        if (!detector.detectError(bytes, parityManager)) {
+            bytes = reparator.repair(bytes, parityManager);
             bytes = parityManager.eraseParityLines(bytes);
             bytes = parityManager.eraseParityBits(bytes);
             decodeMessage = translator.convertBytesToCharacters(bytes, decodeMessage);

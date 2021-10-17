@@ -108,6 +108,20 @@ public class ParityManager {
         bytes.remove(bytes.size() - 1);
         return bytes;
     }
+
+    public String getDesiredByteParityBit(ArrayList<Byte> bytes, ParityManager parityManager, int i) {
+        return parityManager.calculateParityBit(bytes.get(i).getBinaryValue().substring(0, bytes.get(i).getByteLength() - 1));
+    } // return le parity bit de les 8 premier
+
+    public String getCurrentParityBit(ArrayList<Byte> bytes, int i) {
+        return bytes.get(i).getBinaryValue().substring(bytes.get(i).getByteLength() - 1);
+    } // return ce qui est presentement
+
+    public Boolean validateColParityBit(String currentByteCol, ParityManager parityManager) {
+        String currentParityBitCalculated = parityManager.calculateParityBit(currentByteCol.substring(0, currentByteCol.length()-1)); //calcule le parity bit de la colone
+        String neededParityBit = currentByteCol.substring(currentByteCol.length() - 1);
+        return currentParityBitCalculated.equals(neededParityBit);
+    } //valid si est bon
 }
 
 
