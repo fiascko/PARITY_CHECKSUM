@@ -57,9 +57,9 @@ public class Detector {
 
     private boolean detectCoreMessage(ArrayList<Byte> bytes, ParityManager parityManager) {
         for (int i = 0; i < bytes.size() / 9; i++) {
-            if (detectIndex != 0) { // ???
-                detectIndex++; //
-            }//
+            if (detectIndex != 0) {
+                detectIndex++;
+            }
             int counter = 0;
             for (int j = 0; j < 8; j++) {
                 String currentByteParityBit = parityManager.getDesiredByteParityBit(bytes, parityManager, detectIndex);
