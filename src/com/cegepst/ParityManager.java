@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class ParityManager {
 
-    private int position = 0;
+    private int position;
 
     public String calculateParityBit(String binaryValue) {
         int count = 0;
@@ -16,9 +16,8 @@ public class ParityManager {
         }
         if ((count % 2) == 0) {
             return "0";
-        } else {
-            return "1";
         }
+        return "1";
     }
 
     public ArrayList<Byte> eraseParityBits(ArrayList<Byte> bytes) {
@@ -37,14 +36,14 @@ public class ParityManager {
         if (bytes.size() <= 8) {
             return addParityLine(bytes);
         }
-        encodeBytes = addCoreMessageLines(encodeBytes, bytes);
+        encodeBytes = addCoreMessageParityLines(encodeBytes, bytes);
         if (bytes.size() % 8 > 0) {
-            encodeBytes = addMessageLastLine(encodeBytes, bytes, bytes.size() % 8);
+            encodeBytes = addMessageLastParityLine(encodeBytes, bytes);
         }
         return encodeBytes;
     }
 
-    private ArrayList<Byte> addCoreMessageLines(ArrayList<Byte> encodeBytes, ArrayList<Byte> bytes) {
+    private ArrayList<Byte> addCoreMessageParityLines(ArrayList<Byte> encodeBytes, ArrayList<Byte> bytes) {
         position = 0;
         for (int i = 0; i < bytes.size() / 8; i++) {
             ArrayList<Byte> tempoBytes = new ArrayList<Byte>();
@@ -58,9 +57,9 @@ public class ParityManager {
         return encodeBytes;
     }
 
-    private ArrayList<Byte> addMessageLastLine(ArrayList<Byte> encodeBytes, ArrayList<Byte> bytes, int bytesRest) {
+    private ArrayList<Byte> addMessageLastParityLine(ArrayList<Byte> encodeBytes, ArrayList<Byte> bytes) {
         ArrayList<Byte> tempoBytes = new ArrayList<Byte>();
-        for (int i = 0; i < bytesRest; i++) {
+        for (int i = 0; i < bytes.size() % 8; i++) {
             tempoBytes.add(bytes.get(position));
             position++;
         }
@@ -86,14 +85,14 @@ public class ParityManager {
         if (bytes.size() <= 9) {
             return eraseLastParityLine(bytes);
         }
-        bytes = eraseCoreMessageLines(bytes);
-        if (bytes.size() % 9 > 0) {
+        if (bytes.size() % 9 != 0) {
             bytes = eraseLastParityLine(bytes);
         }
+        bytes = eraseCoreMessageParityLines(bytes);
         return bytes;
     }
 
-    private ArrayList<Byte> eraseCoreMessageLines(ArrayList<Byte> bytes) {
+    private ArrayList<Byte> eraseCoreMessageParityLines(ArrayList<Byte> bytes) {
         ArrayList<Byte> bytesToRemove = new ArrayList<>();
         for (int i = 1; i <= bytes.size() / 9; i++) {
             bytesToRemove.add(bytes.get(i * 9 - 1));
@@ -109,19 +108,19 @@ public class ParityManager {
         return bytes;
     }
 
-    public String getDesiredByteParityBit(ArrayList<Byte> bytes, ParityManager parityManager, int i) {
-        return parityManager.calculateParityBit(bytes.get(i).getBinaryValue().substring(0, bytes.get(i).getLength() - 1));
-    } // return le parity bit de les 8 premier
+    public String getDesiredByteParityBit(ArrayList<Byte> bytes, ParityManager parityManager, int index) {
+        return parityManager.calculateParityBit(bytes.get(index).getBinaryValue().substring(0, bytes.get(index).getLength() - 1));
+    }
 
-    public String getCurrentParityBit(ArrayList<Byte> bytes, int i) {
-        return bytes.get(i).getBinaryValue().substring(bytes.get(i).getLength() - 1);
-    } // return ce qui est presentement
+    public String getCurrentByteParityBit(ArrayList<Byte> bytes, int index) {
+        return bytes.get(index).getBinaryValue().substring(bytes.get(index).getLength() - 1);
+    }
 
     public Boolean validateColParityBit(String currentByteCol, ParityManager parityManager) {
-        String currentParityBitCalculated = parityManager.calculateParityBit(currentByteCol.substring(0, currentByteCol.length()-1)); //calcule le parity bit de la colone
+        String currentParityBitCalculated = parityManager.calculateParityBit(currentByteCol.substring(0, currentByteCol.length()-1));
         String neededParityBit = currentByteCol.substring(currentByteCol.length() - 1);
         return currentParityBitCalculated.equals(neededParityBit);
-    } //valid si est bon
+    }
 }
 
 

@@ -54,7 +54,7 @@ public class TranslatorTest {
         assertEquals('k', result.get(10));
     }
 
-    private class BinaryArrays {
+    private static class BinaryArrays {
         private ArrayList<Byte> initShortBinaryArray() {
             ArrayList<Byte> bytes = new ArrayList<Byte>();
             bytes.add(new Byte("01100001"));

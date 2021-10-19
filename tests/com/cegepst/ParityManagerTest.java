@@ -26,7 +26,7 @@ public class ParityManagerTest {
 
     @Test
     public void GET_CURRENT_PARITY_BIT() {
-        String result = parityManager.getCurrentParityBit(binaryArrays.initShortArray(), 3);
+        String result = parityManager.getCurrentByteParityBit(binaryArrays.initShortArray(), 3);
         assertEquals("0", result);
     }
 
@@ -106,7 +106,7 @@ public class ParityManagerTest {
         assertEquals(bytes.size() - 2,  result.size());
     }
 
-    private class BinaryArrays {
+    private static class BinaryArrays {
         private ArrayList<Byte> initShortArray() {
             ArrayList<Byte> bytes = new ArrayList<Byte>();
             bytes.add(new Byte("010010101"));

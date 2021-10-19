@@ -74,7 +74,7 @@ public class DetectorTest {
         assertEquals(true, result);
     }
 
-    private class BinaryArrays {
+    private static class BinaryArrays {
         private ArrayList<Byte> initShortArray() {
             ArrayList<Byte> bytes = new ArrayList<Byte>();
             bytes.add(new Byte("011010100"));

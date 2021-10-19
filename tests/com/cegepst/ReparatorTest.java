@@ -38,7 +38,7 @@ public class ReparatorTest {
         assertEquals("011011110", result.get(11).getBinaryValue());
     }
 
-    private class BinaryArrays {
+    private static class BinaryArrays {
         private ArrayList<Byte> initShortArrayWithParityLineReparable() {
             ArrayList<Byte> bytes = new ArrayList<Byte>();
             bytes.add(new Byte("011010100"));
@@ -71,7 +71,7 @@ public class ReparatorTest {
             return bytes;
         }
 
-        private ArrayList<Byte> initLongArrayWithParityLineReparable2() { //for the end check
+        private ArrayList<Byte> initLongArrayWithParityLineReparable2() {
             ArrayList<Byte> bytes = new ArrayList<Byte>();
             bytes.add(new Byte("011010100"));
             bytes.add(new Byte("011001010"));
