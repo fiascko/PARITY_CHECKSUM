@@ -23,7 +23,7 @@ public class ParityManager {
 
     public ArrayList<Byte> eraseParityBits(ArrayList<Byte> bytes) {
         for (int i = 0; i < bytes.size(); i++) {
-            bytes.get(i).deleteParityBinaryValue(eraseParityBit(bytes.get(i).getBinaryValue()));
+            bytes.get(i).deleteParity(eraseParityBit(bytes.get(i).getBinaryValue()));
         }
         return bytes;
     }
@@ -110,11 +110,11 @@ public class ParityManager {
     }
 
     public String getDesiredByteParityBit(ArrayList<Byte> bytes, ParityManager parityManager, int i) {
-        return parityManager.calculateParityBit(bytes.get(i).getBinaryValue().substring(0, bytes.get(i).getByteLength() - 1));
+        return parityManager.calculateParityBit(bytes.get(i).getBinaryValue().substring(0, bytes.get(i).getLength() - 1));
     } // return le parity bit de les 8 premier
 
     public String getCurrentParityBit(ArrayList<Byte> bytes, int i) {
-        return bytes.get(i).getBinaryValue().substring(bytes.get(i).getByteLength() - 1);
+        return bytes.get(i).getBinaryValue().substring(bytes.get(i).getLength() - 1);
     } // return ce qui est presentement
 
     public Boolean validateColParityBit(String currentByteCol, ParityManager parityManager) {

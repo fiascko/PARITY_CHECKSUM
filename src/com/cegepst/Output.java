@@ -37,7 +37,7 @@ public class Output {
     }
 
     public static void displayDecodeResult(String decodeMessage) {
-        if (decodeMessage.equals("")) {
+        if (decodeMessage.equalsIgnoreCase("CORRUPTED")) {
             System.out.println("The message is corrupted.");
         } else {
             System.out.println("I decoded this message for you.");

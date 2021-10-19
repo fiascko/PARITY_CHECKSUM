@@ -15,7 +15,7 @@ public class Translator {
 
     public ArrayList<Character> convertBytesToCharacters(ArrayList<Byte> bytes, ArrayList<Character> decodeMessage) {
         for (int i = 0; i < bytes.size(); i++) {
-            decodeMessage.add(bytes.get(i).getCharFromByte());
+            decodeMessage.add(bytes.get(i).getChar());
         }
         return decodeMessage;
     }

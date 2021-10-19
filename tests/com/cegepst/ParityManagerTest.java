@@ -10,27 +10,29 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ParityManagerTest {
 
     private ParityManager parityManager;
+    private BinaryArrays binaryArrays;
 
     @BeforeEach
     public void SETUP() {
         parityManager = new ParityManager();
+        binaryArrays = new BinaryArrays();
     }
 
     @Test
     public void GET_DESIRED_PARITY_BIT() {
-        String result = parityManager.getDesiredByteParityBit(initShortArray(), parityManager, 4);
+        String result = parityManager.getDesiredByteParityBit(binaryArrays.initShortArray(), parityManager, 4);
         assertEquals("0", result);
     }
 
     @Test
     public void GET_CURRENT_PARITY_BIT() {
-        String result = parityManager.getCurrentParityBit(initShortArray(), 3);
+        String result = parityManager.getCurrentParityBit(binaryArrays.initShortArray(), 3);
         assertEquals("0", result);
     }
 
     @Test
     public void VALIDATE_COL_PARITY_BIT() {
-        boolean result = parityManager.validateColParityBit(initShortArray().get(1).getBinaryValue(), parityManager);
+        boolean result = parityManager.validateColParityBit(binaryArrays.initShortArray().get(1).getBinaryValue(), parityManager);
         assertEquals(true, result);
     }
 
@@ -60,7 +62,7 @@ public class ParityManagerTest {
 
     @Test
     public void ADD_PARITY_LINE_SHORT_MESSAGE() {
-        ArrayList<Byte> result = parityManager.addParityLines(initShortArray());
+        ArrayList<Byte> result = parityManager.addParityLines(binaryArrays.initShortArray());
         assertEquals("010010101", result.get(0).getBinaryValue());
         assertEquals("011001010", result.get(1).getBinaryValue());
         assertEquals("001000001", result.get(2).getBinaryValue());
@@ -73,22 +75,14 @@ public class ParityManagerTest {
 
     @Test
     public void ERASE_PARITY_LINE_SHORT_MESSAGE() {
-        ArrayList<Byte> bytes = initShortArrayWithParityLine();
-        ArrayList<Byte> result = parityManager.eraseParityLines(initShortArrayWithParityLine());
+        ArrayList<Byte> bytes = binaryArrays.initShortArrayWithParityLine();
+        ArrayList<Byte> result = parityManager.eraseParityLines(binaryArrays.initShortArrayWithParityLine());
         assertEquals(bytes.size() - 1,  result.size());
     }
 
     @Test
-    public void ERASE_PARITY_LINE_LONG_MESSAGE() {
-        ArrayList<Byte> bytes = initLongArrayWithParityLine();
-        ArrayList<Byte> result = parityManager.eraseParityLines(initLongArrayWithParityLine());
-        assertEquals(bytes.size() - 2,  result.size());
-    }
-
-
-    @Test
     public void ADD_PARITY_LINES_LONG_MESSAGE() {
-        ArrayList<Byte> result = parityManager.addParityLines(initLongArray());
+        ArrayList<Byte> result = parityManager.addParityLines(binaryArrays.initLongArray());
         assertEquals("011010100", result.get(0).getBinaryValue());
         assertEquals("011001010", result.get(1).getBinaryValue());
         assertEquals("001000001", result.get(2).getBinaryValue());
@@ -105,65 +99,74 @@ public class ParityManagerTest {
         assertEquals("000010010", result.get(13).getBinaryValue());
     }
 
-    private ArrayList<Byte> initShortArray() {
-        ArrayList<Byte> bytes = new ArrayList<Byte>();
-        bytes.add(new Byte("010010101"));
-        bytes.add(new Byte("011001010"));
-        bytes.add(new Byte("001000001"));
-        bytes.add(new Byte("011101000"));
-        bytes.add(new Byte("011001010"));
-        bytes.add(new Byte("011100111"));
-        bytes.add(new Byte("011101000"));
-        return bytes;
+    @Test
+    public void ERASE_PARITY_LINE_LONG_MESSAGE() {
+        ArrayList<Byte> bytes = binaryArrays.initLongArrayWithParityLine();
+        ArrayList<Byte> result = parityManager.eraseParityLines(binaryArrays.initLongArrayWithParityLine());
+        assertEquals(bytes.size() - 2,  result.size());
     }
 
-    private ArrayList<Byte> initShortArrayWithParityLine() {
-        ArrayList<Byte> bytes = new ArrayList<Byte>();
-        bytes.add(new Byte("011010100"));
-        bytes.add(new Byte("011001010"));
-        bytes.add(new Byte("001000001"));
-        bytes.add(new Byte("011101000"));
-        bytes.add(new Byte("011001010"));
-        bytes.add(new Byte("011100111"));
-        bytes.add(new Byte("011101000"));
-        bytes.add(new Byte("001110010"));
-        return bytes;
-    }
+    private class BinaryArrays {
+        private ArrayList<Byte> initShortArray() {
+            ArrayList<Byte> bytes = new ArrayList<Byte>();
+            bytes.add(new Byte("010010101"));
+            bytes.add(new Byte("011001010"));
+            bytes.add(new Byte("001000001"));
+            bytes.add(new Byte("011101000"));
+            bytes.add(new Byte("011001010"));
+            bytes.add(new Byte("011100111"));
+            bytes.add(new Byte("011101000"));
+            return bytes;
+        }
 
-    private ArrayList<Byte> initLongArray() {
-        ArrayList<Byte> bytes = new ArrayList<Byte>();
-        bytes.add(new Byte("011010100"));//0
-        bytes.add(new Byte("011001010"));//1
-        bytes.add(new Byte("001000001"));//2
-        bytes.add(new Byte("011101000"));//3
-        bytes.add(new Byte("011001010"));//4
-        bytes.add(new Byte("011100111"));//5
-        bytes.add(new Byte("011101000"));//6
-        bytes.add(new Byte("001000001"));//7
-        bytes.add(new Byte("011001111"));//8
-        bytes.add(new Byte("011100100"));//9
-        bytes.add(new Byte("011011110"));//10
-        bytes.add(new Byte("011100111"));//11
-        return bytes;
-    }
+        private ArrayList<Byte> initShortArrayWithParityLine() {
+            ArrayList<Byte> bytes = new ArrayList<Byte>();
+            bytes.add(new Byte("011010100"));
+            bytes.add(new Byte("011001010"));
+            bytes.add(new Byte("001000001"));
+            bytes.add(new Byte("011101000"));
+            bytes.add(new Byte("011001010"));
+            bytes.add(new Byte("011100111"));
+            bytes.add(new Byte("011101000"));
+            bytes.add(new Byte("001110010"));
+            return bytes;
+        }
 
-    private ArrayList<Byte> initLongArrayWithParityLine() {
-        ArrayList<Byte> bytes = new ArrayList<Byte>();
-        bytes.add(new Byte("011010100"));
-        bytes.add(new Byte("011001010"));
-        bytes.add(new Byte("001000001"));
-        bytes.add(new Byte("011101000"));
-        bytes.add(new Byte("011001010"));
-        bytes.add(new Byte("011100111"));
-        bytes.add(new Byte("011101000"));
-        bytes.add(new Byte("001000001"));
-        bytes.add(new Byte("000110011"));
-        bytes.add(new Byte("011001111"));
-        bytes.add(new Byte("011100100"));
-        bytes.add(new Byte("011011110"));
-        bytes.add(new Byte("011100111"));
-        bytes.add(new Byte("000010010"));
-        return bytes;
+        private ArrayList<Byte> initLongArray() {
+            ArrayList<Byte> bytes = new ArrayList<Byte>();
+            bytes.add(new Byte("011010100"));
+            bytes.add(new Byte("011001010"));
+            bytes.add(new Byte("001000001"));
+            bytes.add(new Byte("011101000"));
+            bytes.add(new Byte("011001010"));
+            bytes.add(new Byte("011100111"));
+            bytes.add(new Byte("011101000"));
+            bytes.add(new Byte("001000001"));
+            bytes.add(new Byte("011001111"));
+            bytes.add(new Byte("011100100"));
+            bytes.add(new Byte("011011110"));
+            bytes.add(new Byte("011100111"));
+            return bytes;
+        }
+
+        private ArrayList<Byte> initLongArrayWithParityLine() {
+            ArrayList<Byte> bytes = new ArrayList<Byte>();
+            bytes.add(new Byte("011010100"));
+            bytes.add(new Byte("011001010"));
+            bytes.add(new Byte("001000001"));
+            bytes.add(new Byte("011101000"));
+            bytes.add(new Byte("011001010"));
+            bytes.add(new Byte("011100111"));
+            bytes.add(new Byte("011101000"));
+            bytes.add(new Byte("001000001"));
+            bytes.add(new Byte("000110011"));
+            bytes.add(new Byte("011001111"));
+            bytes.add(new Byte("011100100"));
+            bytes.add(new Byte("011011110"));
+            bytes.add(new Byte("011100111"));
+            bytes.add(new Byte("000010010"));
+            return bytes;
+        }
     }
 }
 

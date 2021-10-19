@@ -10,10 +10,12 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TranslatorTest {
 
     private Translator translator;
+    private BinaryArrays binaryArrays;
 
     @BeforeEach
     public void SETUP() {
         translator = new Translator();
+        binaryArrays = new BinaryArrays();
     }
 
     @Test
@@ -30,14 +32,14 @@ public class TranslatorTest {
 
     @Test
     public void CONVERT_BINARY_TO_MESSAGE_SHORT() {
-        ArrayList<Byte> bytes = initShortBinaryArray();
+        ArrayList<Byte> bytes = binaryArrays.initShortBinaryArray();
         ArrayList<Character> result = translator.convertBytesToCharacters(bytes, new ArrayList<Character>());
         assertEquals('a', result.get(0));
     }
 
     @Test
     public void CONVERT_BINARY_TO_MESSAGE_LONG() {
-        ArrayList<Byte> bytes = initLongBinaryArray();
+        ArrayList<Byte> bytes = binaryArrays.initLongBinaryArray();
         ArrayList<Character> result = translator.convertBytesToCharacters(bytes, new ArrayList<Character>());
         assertEquals('a', result.get(0));
         assertEquals('b', result.get(1));
@@ -52,25 +54,27 @@ public class TranslatorTest {
         assertEquals('k', result.get(10));
     }
 
-    private ArrayList<Byte> initShortBinaryArray() {
-        ArrayList<Byte> bytes = new ArrayList<Byte>();
-        bytes.add(new Byte("01100001"));
-        return bytes;
-    }
+    private class BinaryArrays {
+        private ArrayList<Byte> initShortBinaryArray() {
+            ArrayList<Byte> bytes = new ArrayList<Byte>();
+            bytes.add(new Byte("01100001"));
+            return bytes;
+        }
 
-    private ArrayList<Byte> initLongBinaryArray() {
-        ArrayList<Byte> bytes = new ArrayList<Byte>();
-        bytes.add(new Byte("01100001"));
-        bytes.add(new Byte("01100010"));
-        bytes.add(new Byte("01100011"));
-        bytes.add(new Byte("01100100"));
-        bytes.add(new Byte("01100101"));
-        bytes.add(new Byte("01100110"));
-        bytes.add(new Byte("01100111"));
-        bytes.add(new Byte("01101000"));
-        bytes.add(new Byte("01101001"));
-        bytes.add(new Byte("01101010"));
-        bytes.add(new Byte("01101011"));
-        return bytes;
+        private ArrayList<Byte> initLongBinaryArray() {
+            ArrayList<Byte> bytes = new ArrayList<Byte>();
+            bytes.add(new Byte("01100001"));
+            bytes.add(new Byte("01100010"));
+            bytes.add(new Byte("01100011"));
+            bytes.add(new Byte("01100100"));
+            bytes.add(new Byte("01100101"));
+            bytes.add(new Byte("01100110"));
+            bytes.add(new Byte("01100111"));
+            bytes.add(new Byte("01101000"));
+            bytes.add(new Byte("01101001"));
+            bytes.add(new Byte("01101010"));
+            bytes.add(new Byte("01101011"));
+            return bytes;
+        }
     }
 }

@@ -12,19 +12,19 @@ public class Byte {
         return binaryValue;
     }
 
-    public int getByteLength() {
+    public int getLength() {
         return binaryValue.length();
     }
 
-    public void deleteParityBinaryValue(String newBinaryValue) {
+    public void deleteParity(String newBinaryValue) {
         binaryValue = newBinaryValue;
     }
 
-    public void setParityBinaryValue(String parityBit) {
+    public void addParity(String parityBit) {
         binaryValue += parityBit;
     }
 
-    public char getCharFromByte() {
+    public char getChar() {
         int parseInt = Integer.parseInt(binaryValue, 2);
         return (char) parseInt;
     }

@@ -4,24 +4,29 @@ import java.util.ArrayList;
 
 public class Decoder {
 
-    private ArrayList<Byte> bytes;
-    private final Reparator reparator;
+    private static final String CORRUPTED = "CORRUPTED";
     private final Translator translator;
-    private final Detector detector;
     private final ParityManager parityManager;
+    private final Detector detector;
+    private final Reparator reparator;
+    private ArrayList<Byte> bytes;
     private ArrayList<Character> decodeMessage;
 
     public Decoder() {
+        translator = new Translator();
+        parityManager = new ParityManager();
         detector = new Detector();
         reparator = new Reparator();
         bytes = new ArrayList<>();
         decodeMessage = new ArrayList<>();
-        translator = new Translator();
-        parityManager = new ParityManager();
     }
 
     public String decode(String binaryMessage) {
         splitBitsStream(binaryMessage);
+        return decodeProcess();
+    }
+
+    private String decodeProcess() {
         if (!detector.detectError(bytes, parityManager)) {
             bytes = reparator.repair(bytes, parityManager);
             bytes = parityManager.eraseParityLines(bytes);
@@ -29,7 +34,7 @@ public class Decoder {
             decodeMessage = translator.convertBytesToCharacters(bytes, decodeMessage);
             return convertDecodeMessage();
         } else {
-            return "";
+            return CORRUPTED;
         }
     }
 
@@ -44,7 +49,7 @@ public class Decoder {
     private String convertDecodeMessage() {
         String decodeMessage = "";
         for (int i = 0; i < bytes.size(); i++) {
-            decodeMessage += bytes.get(i).getCharFromByte();
+            decodeMessage += bytes.get(i).getChar();
         }
         return decodeMessage;
     }

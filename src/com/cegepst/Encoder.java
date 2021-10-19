@@ -9,14 +9,17 @@ public class Encoder {
     private final ArrayList<Byte> bytes;
 
     public Encoder() {
-        bytes = new ArrayList<>();
         translator = new Translator();
         parityManager = new ParityManager();
+        bytes = new ArrayList<>();
     }
 
     public String encode(String textMessage) {
-        String bitsStream = translator.convertMessageToBinary(textMessage);
-        splitBitsStream(bitsStream);
+        splitBitsStream(translator.convertMessageToBinary(textMessage));
+        return encodeProcess();
+    }
+
+    private String encodeProcess() {
         ArrayList<Byte> encodeBytesStream = parityManager.addParityLines(bytes);
         return convertEncodeBytesStream(encodeBytesStream);
     }
@@ -26,7 +29,7 @@ public class Encoder {
         String[] splitBits = bitsStream.split("(?<=\\G.{8})");
         for (int i = 0; i < byteCounter; i++) {
             bytes.add(new Byte(splitBits[i]));
-            bytes.get(i).setParityBinaryValue(parityManager.calculateParityBit(bytes.get(i).getBinaryValue()));
+            bytes.get(i).addParity(parityManager.calculateParityBit(bytes.get(i).getBinaryValue()));
         }
     }
 
