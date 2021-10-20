@@ -24,4 +24,10 @@ public class ByteTest {
         String result = binaryValue.getBinaryValue();
         assertEquals("01101010", result);
     }
+
+    @Test
+    void GET_LENGTH() {
+        int result = binaryValue.getLength();
+        assertEquals(8, result);
+    }
 }

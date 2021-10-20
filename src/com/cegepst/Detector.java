@@ -8,17 +8,13 @@ public class Detector {
 
     public Boolean detectError(ArrayList<Byte> bytes, ParityManager parityManager) {
         if (bytes.size() <= 9) {
-            if (detectShortMessage(bytes, parityManager)) {
-                return true;
-            }
+            return detectShortMessage(bytes, parityManager);
         } else {
             if (detectCoreMessage(bytes, parityManager)) {
                 return true;
             }
             if (bytes.size() % 9 > 0) {
-                if (detectEndMessage(bytes, parityManager)) {
-                    return true;
-                }
+                return detectEndMessage(bytes, parityManager);
             }
         }
         return false;

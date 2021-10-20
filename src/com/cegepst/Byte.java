@@ -8,25 +8,12 @@ public class Byte {
         binaryValue = bits;
     }
 
-    public String getBinaryValue() {
-        return binaryValue;
-    }
-
-    public int getLength() {
-        return binaryValue.length();
-    }
-
     public void deleteParity(String newBinaryValue) {
         binaryValue = newBinaryValue;
     }
 
     public void addParity(String parityBit) {
         binaryValue += parityBit;
-    }
-
-    public char getChar() {
-        int parseInt = Integer.parseInt(binaryValue, 2);
-        return (char) parseInt;
     }
 
     public void toggleChar(int i) {
@@ -37,5 +24,18 @@ public class Byte {
             newBinaryValue.setCharAt(i, '1');
         }
         this.binaryValue = newBinaryValue.toString();
+    }
+
+    public char getChar() {
+        int parseInt = Integer.parseInt(binaryValue, 2);
+        return (char) parseInt;
+    }
+
+    public String getBinaryValue() {
+        return binaryValue;
+    }
+
+    public int getLength() {
+        return binaryValue.length();
     }
 }
