@@ -16,7 +16,7 @@ public class Detector {
                 return true;
             }
             if (bytes.size() % 9 > 0) {
-                if (detectMessageEnd(bytes, parityManager)) {
+                if (detectEndMessage(bytes, parityManager)) {
                     return true;
                 }
             }
@@ -65,7 +65,7 @@ public class Detector {
                 String currentByteParityBit = parityManager.getDesiredByteParityBit(bytes, parityManager, detectIndex);
                 if (!currentByteParityBit.equals(parityManager.getCurrentByteParityBit(bytes, detectIndex))) {
                     count++;
-                    if (count == 2) {
+                    if (count > 1) {
                         return true;
                     }
                 }
@@ -95,14 +95,14 @@ public class Detector {
         return false;
     }
 
-    private boolean detectMessageEnd(ArrayList<Byte> bytes, ParityManager parityManager) {
+    private boolean detectEndMessage(ArrayList<Byte> bytes, ParityManager parityManager) {
         int count = 0;
         int start = detectIndex;
         for (int j = detectIndex; j < bytes.size() - 1; j++) {
             String currentByteparityBit = parityManager.getDesiredByteParityBit(bytes, parityManager, detectIndex);
             if (!currentByteparityBit.equals(parityManager.getCurrentByteParityBit(bytes, detectIndex))) {
                 count++;
-                if (count == 2) {
+                if (count > 1) {
                     return true;
                 }
             }

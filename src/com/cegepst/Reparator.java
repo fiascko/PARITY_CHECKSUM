@@ -8,97 +8,68 @@ public class Reparator {
 
     public ArrayList<Byte> repair(ArrayList<Byte> bytes, ParityManager parityManager) {
         if (bytes.size() <= 9) {
-            bytes = repairEndMessage(bytes, parityManager);
-        } else {
+            return repairEndMessage(bytes, parityManager);
+        }
+        for (int i = 0; i < bytes.size() / 9; i++) {
             bytes = repairCoreMessage(bytes, parityManager);
-            if (bytes.size() % 9 > 0) {
-//                detectIndex++; //je dois tu ajouter
-                bytes = repairEndMessage(bytes, parityManager);
-            }
+        }
+        if (bytes.size() % 9 > 0) {
+            return repairEndMessage(bytes, parityManager);
         }
         return bytes;
     }
 
     private ArrayList<Byte> repairCoreMessage(ArrayList<Byte> bytes, ParityManager parityManager) {
-        for (int z = 0; z < bytes.size() / 9; z++) {
-            if (detectIndex != 0) {
-                detectIndex++;
-            }
-            for (int o = 0; o < 8; o++) {
+        int errorIndex = 0;
+        boolean errorDetect = false;
+            for (int j = 0; j < 9; j++) {
                 String desiredByteParityBit = parityManager.getDesiredByteParityBit(bytes, parityManager, detectIndex);
                 if (!desiredByteParityBit.equals(parityManager.getCurrentByteParityBit(bytes, detectIndex))) {
-                    int errorByte = detectIndex;
-                    for (int i = 0; i < 8; i++ ) {
-                        String currentByteCol = "";
-                        for (int j = 0; j < 9; j++) {
-                            currentByteCol += bytes.get(j).getBinaryValue().charAt(i);
-                        }
-                        int errorChar = i;
-                        if (!parityManager.validateColParityBit(currentByteCol, parityManager)) {
-                            bytes.get(errorByte).toggleChar(errorChar);
-//                            break;
-                        }
-                    }
+                    errorDetect = true;
+                    errorIndex = detectIndex;
                 }
                 detectIndex++;
+            }
+            if (errorDetect) {
+                bytes = repairErrorCore(bytes, parityManager, detectIndex, errorIndex);
+            }
+        return bytes;
+    }
+
+    private ArrayList<Byte> repairErrorCore(ArrayList<Byte> bytes, ParityManager parityManager, int errorIndex, int error) {
+        for (int i = 0; i < 9; i++ ) {
+            String currentByteCol = "";
+            for (int j = errorIndex - 9; j < errorIndex; j++) {
+                currentByteCol += bytes.get(j).getBinaryValue().charAt(i);
+            }
+            if (!parityManager.validateColParityBit(currentByteCol, parityManager)) {
+                bytes.get(error).toggleChar(i);
             }
         }
         return bytes;
     }
 
     private ArrayList<Byte> repairEndMessage(ArrayList<Byte> bytes, ParityManager parityManager) {
-        int errorByte  = 0;
-        boolean errorFind = false;
         for (int i = detectIndex; i < bytes.size() - 1; i++) {
             String desiredByteParityBit = parityManager.getDesiredByteParityBit(bytes, parityManager, detectIndex);
             if (!desiredByteParityBit.equals(parityManager.getCurrentByteParityBit(bytes, detectIndex))) {
-                errorByte = detectIndex;
-                errorFind = true;
+                return repairErrorEnd(bytes, parityManager, detectIndex);
             }
             detectIndex++;
         }
-        if (errorFind) {
-            for (int i = 0; i < 8; i++ ) {
-                String currentByteCol = "";
-                for (int j = 0; j < bytes.size(); j++) {
-                    currentByteCol += bytes.get(j).getBinaryValue().charAt(i);
-                }
-                int errorChar = i;
-                if (!parityManager.validateColParityBit(currentByteCol, parityManager)) {
-                    bytes.get(errorByte).toggleChar(errorChar);
-                    break;
-                }
+        return bytes;
+    }
+
+    private ArrayList<Byte> repairErrorEnd(ArrayList<Byte> bytes, ParityManager parityManager, int errorIndex) {
+        for (int i = 0; i < 9; i++ ) {
+            String currentByteCol = "";
+            for (int j = 0; j < bytes.size(); j++) {
+                currentByteCol += bytes.get(j).getBinaryValue().charAt(i);
+            }
+            if (!parityManager.validateColParityBit(currentByteCol, parityManager)) {
+                bytes.get(errorIndex).toggleChar(i);
             }
         }
         return bytes;
     }
 }
-
-
-
-//    private ArrayList<Byte> repairShortMessage(ArrayList<Byte> bytes, ParityManager parityManager) {
-//        int errorByte = 0;
-//        boolean errorFind = false;
-//        for (int i = detectIndex; i < bytes.size() - 1; i++) {
-//            String desiredByteParityBit = parityManager.getDesiredByteParityBit(bytes, parityManager, detectIndex);
-//            if (!desiredByteParityBit.equals(parityManager.getCurrentByteParityBit(bytes, detectIndex))) {
-//                errorByte = detectIndex;
-//                errorFind = true;
-//            }
-//            detectIndex++;
-//        }
-//        if (errorFind) {
-//            for (int i = 0; i < 8; i++ ) {
-//                String currentByteCol = "";
-//                for (int j = 0; j < bytes.size(); j++) {
-//                    currentByteCol += bytes.get(j).getBinaryValue().charAt(i);
-//                }
-//                int errorChar = i;
-//                if (!parityManager.validateColParityBit(currentByteCol, parityManager)) {
-//                    bytes.get(errorByte).toggleChar(errorChar);
-//                    break;
-//                }
-//            }
-//        }
-//        return bytes;
-//    }
